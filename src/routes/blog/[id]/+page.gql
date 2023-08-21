@@ -1,0 +1,18 @@
+query BlogDetail($id: String) {
+	blog(where: { slug: $id }) {
+		title
+		subtitle
+		slug
+		updatedAt
+		headerImage {
+			url
+			width
+			height
+		}
+		category
+		content {
+			markdown
+		}
+		publishedAt
+	}
+}

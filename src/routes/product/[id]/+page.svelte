@@ -1,0 +1,49 @@
+<script lang="ts">
+	import DestinationPriceCard from '$components/Card/DestinationPriceCard.svelte';
+	import ProductPriceCard from '$components/Card/ProductPriceCard.svelte';
+	import ShopCard from '$components/Card/ShopCard.svelte';
+	import Carousel from '$components/Carousel/Carousel.svelte';
+	import Leaflet from '$components/Map/Leaflet.svelte';
+	import MarkdownDisplayer from '$components/Markdown/MarkdownDisplayer.svelte';
+	import PageTitle from '$components/SEO/PageTitle.svelte';
+	import type { PageData } from '$houdini/types/src/routes/product/[id]/$houdini';
+	export let data: PageData;
+
+	$: ({ ProductDetail } = data);
+</script>
+
+{#if $ProductDetail.data?.product}
+	{#if $ProductDetail.data.product.title}
+		<PageTitle title={$ProductDetail.data.product.title} />
+	{/if}
+	<div class="flex flex-col w-full mx-auto max-w-screen-2xl">
+		<h1 class="text-4xl font-bold">{$ProductDetail.data.product.title}</h1>
+		<h2 class="text-base">
+			{$ProductDetail.data.product.subtitle}
+		</h2>
+		<div class="flex w-full gap-5">
+			<div class="w-2/3">
+				<Carousel imageArray={$ProductDetail.data.product.image} />
+			</div>
+			{#if $ProductDetail.data.product.title && $ProductDetail.data.product.shortLocation && $ProductDetail.data.product.shop}
+				<div class="w-1/4">
+					<ProductPriceCard
+						title={$ProductDetail.data.product.title}
+						shortLocation={$ProductDetail.data.product.shortLocation}
+						prices={$ProductDetail.data.product.price}
+					/>
+					<ShopCard shop={$ProductDetail.data.product.shop} />
+				</div>
+			{/if}
+		</div>
+		<div class="w-2/3 mt-10">
+			{#if $ProductDetail.data.product.description?.markdown}
+				<MarkdownDisplayer content={$ProductDetail.data.product.description?.markdown} />
+			{/if}
+		</div>
+	</div>
+{/if}
+
+<!-- <pre>
+	{JSON.stringify($ProductDetail, null, 4)}
+</pre> -->

@@ -1,0 +1,26 @@
+query MapsLocation {
+  destinations {
+    title
+    headerImage {
+      url
+      height
+      width
+    }
+    location {
+      latitude
+      longitude
+    }
+  }
+  products {
+    title
+    headerImage {
+       url
+      height
+      width
+    }
+    location {
+      latitude
+      longitude
+    }
+  }
+}

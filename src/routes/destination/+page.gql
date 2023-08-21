@@ -1,0 +1,20 @@
+query Destinations {
+	destinations {
+		title
+        subtitle
+		shortDescription
+		slug
+        price {
+			isPromotion
+			price
+			quantity
+			stage
+			amountName
+		}
+		headerImage {
+			url
+			height
+			width
+		}
+    }
+}

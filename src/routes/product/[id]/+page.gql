@@ -1,0 +1,42 @@
+query ProductDetail($id: String) {
+	product(where: { slug: $id }) {
+		id
+		image {
+			url
+			width
+			height
+		}
+		isFeatured
+		location {
+			latitude
+			longitude
+			
+		}
+		price {
+			isPromotion
+			price
+			quantity
+			stage
+			amountName
+		}
+		shortDescription
+		shortLocation
+		slug
+		subtitle
+		title
+		shop {
+			instagramLink
+			shopName
+			waNumber
+			slug
+			shopLogo {
+				url 
+				width 
+				height
+			}
+		}
+		description {
+			markdown
+		}
+	}
+}

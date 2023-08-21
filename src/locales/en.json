@@ -1,0 +1,13 @@
+{
+	"error": {
+		"400": "Request is not valid",
+		"401": "Invalid Auth Token",
+		"403": "User doesn't have permission",
+		"404": "Data Not Found",
+		"429": "Too Many Request",
+		"500": "Internal Server Error"
+	},
+	"success": {
+		"200": "{{action}} success"
+	}
+}

@@ -1,0 +1,17 @@
+query Document($id: String) {
+	document(where: { slug: $id }) {
+		title
+		subtitle
+		slug
+		updatedAt
+		headerImage {
+			url
+			width
+			height
+		}
+		content {
+			markdown
+		}
+		publishedAt
+	}
+}

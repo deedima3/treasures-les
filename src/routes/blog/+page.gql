@@ -1,0 +1,12 @@
+query Blogs {
+	blogs {
+		title
+		headerImage {
+			url
+			width
+			height
+		}
+		shortDescription
+		slug
+	}
+}

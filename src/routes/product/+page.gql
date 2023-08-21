@@ -1,0 +1,20 @@
+query Products {
+	products {
+		title
+        subtitle
+		shortDescription
+		slug
+        price {
+			isPromotion
+			price
+			quantity
+			stage
+			amountName
+		}
+		headerImage {
+			url
+			height
+			width
+		}
+    }
+}
