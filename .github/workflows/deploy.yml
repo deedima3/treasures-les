@@ -47,11 +47,9 @@ jobs:
 
       - name: Build site
         run: pnpm build
-        working-directory: '<root>' # if necessary, should contain {out}
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "heavy-mole-50"
-          entrypoint: '{out}/index.js' # same as `out` option in config
-          root: '<root>' # if necessary
+          entrypoint: '/build/index.js'
