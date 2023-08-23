@@ -32,12 +32,27 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Build step
-        run: "npm install && npm run build" # 📝 Update the build command(s) if necessary
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+
+      - name: Install pnpm and node_modules
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          run_install: true
+
+      - name: Build site
+        run: pnpm build
+        working-directory: '<root>' # if necessary, should contain {out}
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "heavy-mole-50"
-          entrypoint: "mod.ts" # 📝 Update the entrypoint if necessary
-          root: "build" # 📝 Update the root if necessary
+          entrypoint: '{out}/index.js' # same as `out` option in config
+          root: '<root>' # if necessary
