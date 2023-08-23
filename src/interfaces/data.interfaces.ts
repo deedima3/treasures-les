@@ -78,6 +78,12 @@ type Shop = {
     } | null;
 }
 
+type LocationType = {
+    type: 'destination' | 'product' | 'shop'
+}
+
+type TypedLocation = LocationType & Location
+
 export type {
     Blog,
     Image,
@@ -85,5 +91,6 @@ export type {
     Shop, Location,
     Destination,
     Product,
-    MapProduct
+    MapProduct,
+    TypedLocation
 }

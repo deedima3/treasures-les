@@ -2,13 +2,13 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import type { Map } from 'leaflet';
-	import type { Location } from '$interfaces/data.interfaces';
+	import type { Location, TypedLocation } from '$interfaces/data.interfaces';
 	import Icon from './Marker.svelte';
 
 	let mapElement: HTMLDivElement;
 	let map: Map;
 
-	export let locationMarker: Location;
+	export let locationMarker: TypedLocation[];
 	export let viewCoordinate: Location;
 
 	onMount(async () => {
@@ -26,11 +26,13 @@
 				})
 				.addTo(map);
 
-			new leaflet.Marker(new leaflet.LatLng(locationMarker.latitude, locationMarker.longitude), {
-				icon: new leaflet.DivIcon({
-					html: `${Icon}`
-				})
-			}).addTo(map);
+			locationMarker.map(({ latitude, longitude }) => {
+				new leaflet.Marker(new leaflet.LatLng(latitude, longitude), {
+					icon: new leaflet.DivIcon({
+						html: `${Icon}`
+					})
+				}).addTo(map);
+			});
 		}
 	});
 
