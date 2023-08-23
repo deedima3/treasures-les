@@ -5,6 +5,10 @@ on:
   pull_request:
     branches: main
 
+env:
+  PUBLIC_BASE_API : ${{secrets.BASE_API}}
+  PUBLIC_API_TOKEN : ${{secrets.API_TOKEN}}
+
 jobs:
   deploy:
     name: Deploy
