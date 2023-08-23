@@ -43,8 +43,7 @@ jobs:
       - name: Install pnpm and node_modules
         uses: pnpm/action-setup@v2
         with:
-          version: latest
-          run_install: true
+          version: 8
 
       - name: Build site
         run: pnpm build
