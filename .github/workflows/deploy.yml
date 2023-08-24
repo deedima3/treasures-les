@@ -54,6 +54,6 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "heavy-mole-50"
+          project: "les"
           entrypoint: ./index.js
           root: ./build
