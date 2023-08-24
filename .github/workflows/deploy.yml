@@ -56,3 +56,4 @@ jobs:
         with:
           project: "heavy-mole-50"
           entrypoint: ./build/index.js
+          root: ./build
