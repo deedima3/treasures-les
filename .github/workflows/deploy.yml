@@ -54,6 +54,9 @@ jobs:
       - name : Display All Directory #Debugging purpose
         run : ls -d */
 
+      - name : Display Full Path
+        run : pwd
+
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
