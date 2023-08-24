@@ -10,6 +10,7 @@ const config = {
 	kit: {
 		adapter: adapter({
 			out: 'build',
+			envPrefix: ''
 		}),
 		alias: {
 			$hoody: './$houdini',
