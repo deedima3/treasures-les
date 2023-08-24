@@ -1,11 +1,12 @@
 import { HoudiniClient } from '$hoody';
+import { PUBLIC_API_TOKEN, PUBLIC_BASE_API } from '$utils/constant';
 
 export default new HoudiniClient({
-    url: import.meta.env.PUBLIC_BASE_API,
+    url: PUBLIC_BASE_API,
     fetchParams() {
         return {
             headers: {
-                Authorization: `Bearer ${import.meta.env.PUBLIC_API_TOKEN}`,
+                Authorization: `Bearer ${PUBLIC_API_TOKEN}`,
             }
         }
     }
