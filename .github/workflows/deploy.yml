@@ -50,6 +50,9 @@ jobs:
 
       - name: Build site
         run: pnpm build
+      
+      - name : Display All Directory #Debugging purpose
+        run : ls -d */
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
