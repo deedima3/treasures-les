@@ -55,5 +55,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "heavy-mole-50"
-          entrypoint: ./build/index.js
+          entrypoint: ./index.js
           root: ./build
