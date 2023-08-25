@@ -11,17 +11,17 @@
 </script>
 
 <a
-	class="w-[400px] bg-white rounded-md flex flex-col shadow-md hover:translate-x-1 hover:scale-105 transition-all ease-in-out cursor-pointer"
+	class="w-full md:w-[400px] bg-white rounded-md flex flex-col shadow-md hover:translate-x-1 hover:scale-105 transition-all ease-in-out cursor-pointer"
 	href={`/blog/${blog.slug}`}
 >
 	<div class="w-full rounded-md h-[300px] overflow-clip">
-		<img src={blog.headerImage?.url} alt="Header" class="object-cover w-full" />
+		<img src={blog.headerImage?.url} alt="Header" class="object-cover w-full h-full" />
 	</div>
 	<div class="w-full px-2 py-3">
 		<h2 class="text-xl font-bold">
 			{blog.title}
 		</h2>
-		<p class="text-base">
+		<p class="text-sm md:text-base">
 			{truncateText(blog.shortDescription)}
 		</p>
 	</div>

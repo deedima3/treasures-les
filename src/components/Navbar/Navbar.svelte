@@ -23,7 +23,7 @@
 	</a>
 	<div class="items-center justify-around hidden w-1/3 md:flex">
 		{#each navbarData as navItem}
-			<NavbarItem {navItem} />
+			<NavbarItem {navItem} onClick={onToggle} />
 		{/each}
 	</div>
 	<div class="items-center hidden w-max md:flex">

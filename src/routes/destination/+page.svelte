@@ -1,6 +1,7 @@
 <script lang="ts">
 	import BlogCard from '$components/Card/BlogCard.svelte';
 	import DestinationCard from '$components/Card/DestinationCard.svelte';
+	import GridContainer from '$components/Container/GridContainer.svelte';
 	import PageTitle from '$components/SEO/PageTitle.svelte';
 	import Title from '$components/Title/Title.svelte';
 	import type { PageData } from '$houdini/types/src/routes/destination/$houdini';
@@ -13,11 +14,11 @@
 <Title title="Destinations" subtitle="Find places to enjoy!" />
 <PageTitle title="Destinations" />
 {#if $Destinations.data}
-	<div class="grid grid-cols-3 gap-10 mx-auto mt-16">
+	<GridContainer>
 		{#each $Destinations.data.destinations as destination}
 			<DestinationCard {destination} />
 		{/each}
-	</div>
+	</GridContainer>
 {/if}
 <!-- <pre>
 	{JSON.stringify($Destinations.data, null, 4)}

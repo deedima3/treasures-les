@@ -4,7 +4,7 @@
 </script>
 
 <Navbar />
-<div class="flex flex-col min-h-screen mt-10">
+<div class="flex flex-col w-full min-h-screen mt-10">
 	<slot />
 </div>
 <Footer />

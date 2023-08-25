@@ -170,6 +170,35 @@ type Asset implements Node {
     skip: Int
     where: ProductWhereInput
   ): [Product!]!
+  headerImageTour(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `headerImageTour` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `headerImageTour` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: TourOrderByInput
+    skip: Int
+    where: TourWhereInput
+  ): [Tour!]!
 
   """The height of the file"""
   height: Float
@@ -432,6 +461,7 @@ input AssetCreateInput {
   headerImageDestination: DestinationCreateManyInlineInput
   headerImageDocument: DocumentCreateManyInlineInput
   headerImageProduct: ProductCreateManyInlineInput
+  headerImageTour: TourCreateManyInlineInput
   height: Float
 
   """
@@ -545,6 +575,9 @@ input AssetManyWhereInput {
   headerImageProduct_every: ProductWhereInput
   headerImageProduct_none: ProductWhereInput
   headerImageProduct_some: ProductWhereInput
+  headerImageTour_every: TourWhereInput
+  headerImageTour_none: TourWhereInput
+  headerImageTour_some: TourWhereInput
   id: ID
 
   """All values containing the given string."""
@@ -672,6 +705,7 @@ input AssetUpdateInput {
   headerImageDestination: DestinationUpdateManyInlineInput
   headerImageDocument: DocumentUpdateManyInlineInput
   headerImageProduct: ProductUpdateManyInlineInput
+  headerImageTour: TourUpdateManyInlineInput
   height: Float
 
   """Manage document localizations"""
@@ -939,6 +973,9 @@ input AssetWhereInput {
   headerImageProduct_every: ProductWhereInput
   headerImageProduct_none: ProductWhereInput
   headerImageProduct_some: ProductWhereInput
+  headerImageTour_every: TourWhereInput
+  headerImageTour_none: TourWhereInput
+  headerImageTour_some: TourWhereInput
   height: Float
 
   """All values greater than the given value."""
@@ -2019,567 +2056,6 @@ input BlogWhereStageInput {
 input BlogWhereUniqueInput {
   id: ID
   slug: String
-}
-
-type Booking implements Node {
-  """The time the document was created"""
-  createdAt: DateTime!
-
-  """User that created this document"""
-  createdBy(
-    """
-    Sets the locale of the resolved parent document as the only locale in the query's subtree.
-    
-    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
-    """
-    forceParentLocale: Boolean
-
-    """
-    Allows to optionally override locale filtering behaviour in the query's subtree.
-    
-    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
-    """
-    locales: [Locale!]
-  ): User
-
-  """Get the document in other stages"""
-  documentInStages(
-    """Decides if the current stage should be included or not"""
-    includeCurrent: Boolean! = false
-
-    """
-    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
-    """
-    inheritLocale: Boolean! = false
-
-    """Potential stages that should be returned"""
-    stages: [Stage!]! = [DRAFT, PUBLISHED]
-  ): [Booking!]!
-
-  """List of Booking versions"""
-  history(
-    limit: Int! = 10
-    skip: Int! = 0
-
-    """
-    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
-    """
-    stageOverride: Stage
-  ): [Version!]!
-
-  """The unique identifier"""
-  id: ID!
-
-  """The time the document was published. Null on documents in draft stage."""
-  publishedAt: DateTime
-
-  """User that last published this document"""
-  publishedBy(
-    """
-    Sets the locale of the resolved parent document as the only locale in the query's subtree.
-    
-    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
-    """
-    forceParentLocale: Boolean
-
-    """
-    Allows to optionally override locale filtering behaviour in the query's subtree.
-    
-    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
-    """
-    locales: [Locale!]
-  ): User
-  scheduledIn(
-    after: String
-    before: String
-    first: Int
-
-    """
-    Sets the locale of the resolved parent document as the only locale in the query's subtree.
-    
-    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
-    """
-    forceParentLocale: Boolean
-    last: Int
-
-    """
-    Allows to optionally override locale filtering behaviour in the query's subtree.
-    
-    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
-    """
-    locales: [Locale!]
-    skip: Int
-    where: ScheduledOperationWhereInput
-  ): [ScheduledOperation!]!
-
-  """System stage field"""
-  stage: Stage!
-
-  """The time the document was updated"""
-  updatedAt: DateTime!
-
-  """User that last updated this document"""
-  updatedBy(
-    """
-    Sets the locale of the resolved parent document as the only locale in the query's subtree.
-    
-    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
-    """
-    forceParentLocale: Boolean
-
-    """
-    Allows to optionally override locale filtering behaviour in the query's subtree.
-    
-    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
-    """
-    locales: [Locale!]
-  ): User
-}
-
-input BookingConnectInput {
-  """
-  Allow to specify document position in list of connected documents, will default to appending at end of list
-  """
-  position: ConnectPositionInput
-
-  """Document to connect"""
-  where: BookingWhereUniqueInput!
-}
-
-"""A connection to a list of items."""
-type BookingConnection {
-  aggregate: Aggregate!
-
-  """A list of edges."""
-  edges: [BookingEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-}
-
-input BookingCreateInput {
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input BookingCreateManyInlineInput {
-  """Connect multiple existing Booking documents"""
-  connect: [BookingWhereUniqueInput!]
-
-  """Create and connect multiple existing Booking documents"""
-  create: [BookingCreateInput!]
-}
-
-input BookingCreateOneInlineInput {
-  """Connect one existing Booking document"""
-  connect: BookingWhereUniqueInput
-
-  """Create and connect one Booking document"""
-  create: BookingCreateInput
-}
-
-"""An edge in a connection."""
-type BookingEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-
-  """The item at the end of the edge."""
-  node: Booking!
-}
-
-"""Identifies documents"""
-input BookingManyWhereInput {
-  """Logical AND on all given filters."""
-  AND: [BookingWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [BookingWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [BookingWhereInput!]
-
-  """Contains search across all appropriate fields."""
-  _search: String
-  createdAt: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  createdAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime]
-  createdBy: UserWhereInput
-  documentInStages_every: BookingWhereStageInput
-  documentInStages_none: BookingWhereStageInput
-  documentInStages_some: BookingWhereStageInput
-  id: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID]
-
-  """Any other value that exists and is not equal to the given value."""
-  id_not: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values not ending with the given string"""
-  id_not_ends_with: ID
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID]
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-  publishedAt: DateTime
-
-  """All values greater than the given value."""
-  publishedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  publishedAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  publishedAt_in: [DateTime]
-
-  """All values less than the given value."""
-  publishedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  publishedAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  publishedAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  publishedAt_not_in: [DateTime]
-  publishedBy: UserWhereInput
-  scheduledIn_every: ScheduledOperationWhereInput
-  scheduledIn_none: ScheduledOperationWhereInput
-  scheduledIn_some: ScheduledOperationWhereInput
-  updatedAt: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  updatedAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime]
-  updatedBy: UserWhereInput
-}
-
-enum BookingOrderByInput {
-  createdAt_ASC
-  createdAt_DESC
-  id_ASC
-  id_DESC
-  publishedAt_ASC
-  publishedAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-input BookingUpdateInput {
-  """No fields in update input"""
-  _: String
-}
-
-input BookingUpdateManyInlineInput {
-  """Connect multiple existing Booking documents"""
-  connect: [BookingConnectInput!]
-
-  """Create and connect multiple Booking documents"""
-  create: [BookingCreateInput!]
-
-  """Delete multiple Booking documents"""
-  delete: [BookingWhereUniqueInput!]
-
-  """Disconnect multiple Booking documents"""
-  disconnect: [BookingWhereUniqueInput!]
-
-  """
-  Override currently-connected documents with multiple existing Booking documents
-  """
-  set: [BookingWhereUniqueInput!]
-
-  """Update multiple Booking documents"""
-  update: [BookingUpdateWithNestedWhereUniqueInput!]
-
-  """Upsert multiple Booking documents"""
-  upsert: [BookingUpsertWithNestedWhereUniqueInput!]
-}
-
-input BookingUpdateManyInput {
-  """No fields in updateMany data input"""
-  _: String
-}
-
-input BookingUpdateManyWithNestedWhereInput {
-  """Update many input"""
-  data: BookingUpdateManyInput!
-
-  """Document search"""
-  where: BookingWhereInput!
-}
-
-input BookingUpdateOneInlineInput {
-  """Connect existing Booking document"""
-  connect: BookingWhereUniqueInput
-
-  """Create and connect one Booking document"""
-  create: BookingCreateInput
-
-  """Delete currently connected Booking document"""
-  delete: Boolean
-
-  """Disconnect currently connected Booking document"""
-  disconnect: Boolean
-
-  """Update single Booking document"""
-  update: BookingUpdateWithNestedWhereUniqueInput
-
-  """Upsert single Booking document"""
-  upsert: BookingUpsertWithNestedWhereUniqueInput
-}
-
-input BookingUpdateWithNestedWhereUniqueInput {
-  """Document to update"""
-  data: BookingUpdateInput!
-
-  """Unique document search"""
-  where: BookingWhereUniqueInput!
-}
-
-input BookingUpsertInput {
-  """Create document if it didn't exist"""
-  create: BookingCreateInput!
-
-  """Update document if it exists"""
-  update: BookingUpdateInput!
-}
-
-input BookingUpsertWithNestedWhereUniqueInput {
-  """Upsert data"""
-  data: BookingUpsertInput!
-
-  """Unique document search"""
-  where: BookingWhereUniqueInput!
-}
-
-"""
-This contains a set of filters that can be used to compare values internally
-"""
-input BookingWhereComparatorInput {
-  """
-  This field can be used to request to check if the entry is outdated by internal comparison
-  """
-  outdated_to: Boolean
-}
-
-"""Identifies documents"""
-input BookingWhereInput {
-  """Logical AND on all given filters."""
-  AND: [BookingWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [BookingWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [BookingWhereInput!]
-
-  """Contains search across all appropriate fields."""
-  _search: String
-  createdAt: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  createdAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime]
-  createdBy: UserWhereInput
-  documentInStages_every: BookingWhereStageInput
-  documentInStages_none: BookingWhereStageInput
-  documentInStages_some: BookingWhereStageInput
-  id: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID]
-
-  """Any other value that exists and is not equal to the given value."""
-  id_not: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values not ending with the given string"""
-  id_not_ends_with: ID
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID]
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-  publishedAt: DateTime
-
-  """All values greater than the given value."""
-  publishedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  publishedAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  publishedAt_in: [DateTime]
-
-  """All values less than the given value."""
-  publishedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  publishedAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  publishedAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  publishedAt_not_in: [DateTime]
-  publishedBy: UserWhereInput
-  scheduledIn_every: ScheduledOperationWhereInput
-  scheduledIn_none: ScheduledOperationWhereInput
-  scheduledIn_some: ScheduledOperationWhereInput
-  updatedAt: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  updatedAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime]
-  updatedBy: UserWhereInput
-}
-
-"""
-The document in stages filter allows specifying a stage entry to cross compare the same document between different stages
-"""
-input BookingWhereStageInput {
-  """Logical AND on all given filters."""
-  AND: [BookingWhereStageInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [BookingWhereStageInput!]
-
-  """Logical OR on all given filters."""
-  OR: [BookingWhereStageInput!]
-
-  """
-  This field contains fields which can be set as true or false to specify an internal comparison
-  """
-  compareWithParent: BookingWhereComparatorInput
-
-  """Specify the stage to compare with"""
-  stage: Stage
-}
-
-"""References Booking record uniquely"""
-input BookingWhereUniqueInput {
-  id: ID
 }
 
 """
@@ -5201,9 +4677,6 @@ type Mutation {
   """Create one blog"""
   createBlog(data: BlogCreateInput!): Blog
 
-  """Create one booking"""
-  createBooking(data: BookingCreateInput!): Booking
-
   """Create one destination"""
   createDestination(data: DestinationCreateInput!): Destination
 
@@ -5212,9 +4685,6 @@ type Mutation {
 
   """Create one email"""
   createEmail(data: EmailCreateInput!): Email
-
-  """Create one order"""
-  createOrder(data: OrderCreateInput!): Order
 
   """Create one product"""
   createProduct(data: ProductCreateInput!): Product
@@ -5239,14 +4709,6 @@ type Mutation {
     """Document to delete"""
     where: BlogWhereUniqueInput!
   ): Blog
-
-  """
-  Delete one booking from _all_ existing stages. Returns deleted document.
-  """
-  deleteBooking(
-    """Document to delete"""
-    where: BookingWhereUniqueInput!
-  ): Booking
 
   """
   Delete one destination from _all_ existing stages. Returns deleted document.
@@ -5306,24 +4768,6 @@ type Mutation {
     where: BlogManyWhereInput
   ): BlogConnection!
 
-  """Delete many Booking documents"""
-  deleteManyBookings(
-    """Documents to delete"""
-    where: BookingManyWhereInput
-  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyBookingsConnection)")
-
-  """Delete many Booking documents, return deleted documents"""
-  deleteManyBookingsConnection(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-    skip: Int
-
-    """Documents to delete"""
-    where: BookingManyWhereInput
-  ): BookingConnection!
-
   """Delete many Destination documents"""
   deleteManyDestinations(
     """Documents to delete"""
@@ -5378,24 +4822,6 @@ type Mutation {
     where: EmailManyWhereInput
   ): EmailConnection!
 
-  """Delete many Order documents"""
-  deleteManyOrders(
-    """Documents to delete"""
-    where: OrderManyWhereInput
-  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyOrdersConnection)")
-
-  """Delete many Order documents, return deleted documents"""
-  deleteManyOrdersConnection(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-    skip: Int
-
-    """Documents to delete"""
-    where: OrderManyWhereInput
-  ): OrderConnection!
-
   """Delete many Product documents"""
   deleteManyProducts(
     """Documents to delete"""
@@ -5449,12 +4875,6 @@ type Mutation {
     """Documents to delete"""
     where: TourManyWhereInput
   ): TourConnection!
-
-  """Delete one order from _all_ existing stages. Returns deleted document."""
-  deleteOrder(
-    """Document to delete"""
-    where: OrderWhereUniqueInput!
-  ): Order
 
   """
   Delete one product from _all_ existing stages. Returns deleted document.
@@ -5516,15 +4936,6 @@ type Mutation {
     """Document to publish"""
     where: BlogWhereUniqueInput!
   ): Blog
-
-  """Publish one booking"""
-  publishBooking(
-    """Publishing target stage"""
-    to: [Stage!]! = [PUBLISHED]
-
-    """Document to publish"""
-    where: BookingWhereUniqueInput!
-  ): Booking
 
   """Publish one destination"""
   publishDestination(
@@ -5625,33 +5036,6 @@ type Mutation {
     where: BlogManyWhereInput
   ): BlogConnection!
 
-  """Publish many Booking documents"""
-  publishManyBookings(
-    """Stages to publish documents to"""
-    to: [Stage!]! = [PUBLISHED]
-
-    """Identifies documents in each stage to be published"""
-    where: BookingManyWhereInput
-  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyBookingsConnection)")
-
-  """Publish many Booking documents"""
-  publishManyBookingsConnection(
-    after: ID
-    before: ID
-    first: Int
-
-    """Stage to find matching documents in"""
-    from: Stage = DRAFT
-    last: Int
-    skip: Int
-
-    """Stages to publish documents to"""
-    to: [Stage!]! = [PUBLISHED]
-
-    """Identifies documents in each stage to be published"""
-    where: BookingManyWhereInput
-  ): BookingConnection!
-
   """Publish many Destination documents"""
   publishManyDestinations(
     """Stages to publish documents to"""
@@ -5732,33 +5116,6 @@ type Mutation {
     """Identifies documents in each stage to be published"""
     where: EmailManyWhereInput
   ): EmailConnection!
-
-  """Publish many Order documents"""
-  publishManyOrders(
-    """Stages to publish documents to"""
-    to: [Stage!]! = [PUBLISHED]
-
-    """Identifies documents in each stage to be published"""
-    where: OrderManyWhereInput
-  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyOrdersConnection)")
-
-  """Publish many Order documents"""
-  publishManyOrdersConnection(
-    after: ID
-    before: ID
-    first: Int
-
-    """Stage to find matching documents in"""
-    from: Stage = DRAFT
-    last: Int
-    skip: Int
-
-    """Stages to publish documents to"""
-    to: [Stage!]! = [PUBLISHED]
-
-    """Identifies documents in each stage to be published"""
-    where: OrderManyWhereInput
-  ): OrderConnection!
 
   """Publish many Product documents"""
   publishManyProducts(
@@ -5841,15 +5198,6 @@ type Mutation {
     where: TourManyWhereInput
   ): TourConnection!
 
-  """Publish one order"""
-  publishOrder(
-    """Publishing target stage"""
-    to: [Stage!]! = [PUBLISHED]
-
-    """Document to publish"""
-    where: OrderWhereUniqueInput!
-  ): Order
-
   """Publish one product"""
   publishProduct(
     """Publishing target stage"""
@@ -5920,23 +5268,6 @@ type Mutation {
     where: BlogWhereUniqueInput!
   ): Blog
 
-  """Schedule to publish one booking"""
-  schedulePublishBooking(
-    """
-    Release at point in time, will create new release containing this operation
-    """
-    releaseAt: DateTime
-
-    """Optionally attach this scheduled operation to an existing release"""
-    releaseId: String
-
-    """Publishing target stage"""
-    to: [Stage!]! = [PUBLISHED]
-
-    """Document to publish"""
-    where: BookingWhereUniqueInput!
-  ): Booking
-
   """Schedule to publish one destination"""
   schedulePublishDestination(
     """
@@ -5987,23 +5318,6 @@ type Mutation {
     """Document to publish"""
     where: EmailWhereUniqueInput!
   ): Email
-
-  """Schedule to publish one order"""
-  schedulePublishOrder(
-    """
-    Release at point in time, will create new release containing this operation
-    """
-    releaseAt: DateTime
-
-    """Optionally attach this scheduled operation to an existing release"""
-    releaseId: String
-
-    """Publishing target stage"""
-    to: [Stage!]! = [PUBLISHED]
-
-    """Document to publish"""
-    where: OrderWhereUniqueInput!
-  ): Order
 
   """Schedule to publish one product"""
   schedulePublishProduct(
@@ -6105,25 +5419,6 @@ type Mutation {
   ): Blog
 
   """
-  Unpublish one booking from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
-  """
-  scheduleUnpublishBooking(
-    """Stages to unpublish document from"""
-    from: [Stage!]! = [PUBLISHED]
-
-    """
-    Release at point in time, will create new release containing this operation
-    """
-    releaseAt: DateTime
-
-    """Optionally attach this scheduled operation to an existing release"""
-    releaseId: String
-
-    """Document to unpublish"""
-    where: BookingWhereUniqueInput!
-  ): Booking
-
-  """
   Unpublish one destination from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
   """
   scheduleUnpublishDestination(
@@ -6179,25 +5474,6 @@ type Mutation {
     """Document to unpublish"""
     where: EmailWhereUniqueInput!
   ): Email
-
-  """
-  Unpublish one order from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
-  """
-  scheduleUnpublishOrder(
-    """Stages to unpublish document from"""
-    from: [Stage!]! = [PUBLISHED]
-
-    """
-    Release at point in time, will create new release containing this operation
-    """
-    releaseAt: DateTime
-
-    """Optionally attach this scheduled operation to an existing release"""
-    releaseId: String
-
-    """Document to unpublish"""
-    where: OrderWhereUniqueInput!
-  ): Order
 
   """
   Unpublish one product from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
@@ -6287,17 +5563,6 @@ type Mutation {
     """Document to unpublish"""
     where: BlogWhereUniqueInput!
   ): Blog
-
-  """
-  Unpublish one booking from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
-  """
-  unpublishBooking(
-    """Stages to unpublish document from"""
-    from: [Stage!]! = [PUBLISHED]
-
-    """Document to unpublish"""
-    where: BookingWhereUniqueInput!
-  ): Booking
 
   """
   Unpublish one destination from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
@@ -6402,35 +5667,6 @@ type Mutation {
     where: BlogManyWhereInput
   ): BlogConnection!
 
-  """Unpublish many Booking documents"""
-  unpublishManyBookings(
-    """Stages to unpublish documents from"""
-    from: [Stage!]! = [PUBLISHED]
-
-    """Identifies documents in each stage"""
-    where: BookingManyWhereInput
-  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyBookingsConnection)")
-
-  """
-  Find many Booking documents that match criteria in specified stage and unpublish from target stages
-  """
-  unpublishManyBookingsConnection(
-    after: ID
-    before: ID
-    first: Int
-
-    """Stages to unpublish documents from"""
-    from: [Stage!]! = [PUBLISHED]
-    last: Int
-    skip: Int
-
-    """Stage to find matching documents in"""
-    stage: Stage = DRAFT
-
-    """Identifies documents in draft stage"""
-    where: BookingManyWhereInput
-  ): BookingConnection!
-
   """Unpublish many Destination documents"""
   unpublishManyDestinations(
     """Stages to unpublish documents from"""
@@ -6517,35 +5753,6 @@ type Mutation {
     """Identifies documents in draft stage"""
     where: EmailManyWhereInput
   ): EmailConnection!
-
-  """Unpublish many Order documents"""
-  unpublishManyOrders(
-    """Stages to unpublish documents from"""
-    from: [Stage!]! = [PUBLISHED]
-
-    """Identifies documents in each stage"""
-    where: OrderManyWhereInput
-  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyOrdersConnection)")
-
-  """
-  Find many Order documents that match criteria in specified stage and unpublish from target stages
-  """
-  unpublishManyOrdersConnection(
-    after: ID
-    before: ID
-    first: Int
-
-    """Stages to unpublish documents from"""
-    from: [Stage!]! = [PUBLISHED]
-    last: Int
-    skip: Int
-
-    """Stage to find matching documents in"""
-    stage: Stage = DRAFT
-
-    """Identifies documents in draft stage"""
-    where: OrderManyWhereInput
-  ): OrderConnection!
 
   """Unpublish many Product documents"""
   unpublishManyProducts(
@@ -6635,17 +5842,6 @@ type Mutation {
   ): TourConnection!
 
   """
-  Unpublish one order from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
-  """
-  unpublishOrder(
-    """Stages to unpublish document from"""
-    from: [Stage!]! = [PUBLISHED]
-
-    """Document to unpublish"""
-    where: OrderWhereUniqueInput!
-  ): Order
-
-  """
   Unpublish one product from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
   """
   unpublishProduct(
@@ -6683,9 +5879,6 @@ type Mutation {
 
   """Update one blog"""
   updateBlog(data: BlogUpdateInput!, where: BlogWhereUniqueInput!): Blog
-
-  """Update one booking"""
-  updateBooking(data: BookingUpdateInput!, where: BookingWhereUniqueInput!): Booking
 
   """Update one destination"""
   updateDestination(data: DestinationUpdateInput!, where: DestinationWhereUniqueInput!): Destination
@@ -6743,30 +5936,6 @@ type Mutation {
     """Documents to apply update on"""
     where: BlogManyWhereInput
   ): BlogConnection!
-
-  """Update many bookings"""
-  updateManyBookings(
-    """Updates to document content"""
-    data: BookingUpdateManyInput!
-
-    """Documents to apply update on"""
-    where: BookingManyWhereInput
-  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyBookingsConnection)")
-
-  """Update many Booking documents"""
-  updateManyBookingsConnection(
-    after: ID
-    before: ID
-
-    """Updates to document content"""
-    data: BookingUpdateManyInput!
-    first: Int
-    last: Int
-    skip: Int
-
-    """Documents to apply update on"""
-    where: BookingManyWhereInput
-  ): BookingConnection!
 
   """Update many destinations"""
   updateManyDestinations(
@@ -6840,30 +6009,6 @@ type Mutation {
     where: EmailManyWhereInput
   ): EmailConnection!
 
-  """Update many orders"""
-  updateManyOrders(
-    """Updates to document content"""
-    data: OrderUpdateManyInput!
-
-    """Documents to apply update on"""
-    where: OrderManyWhereInput
-  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyOrdersConnection)")
-
-  """Update many Order documents"""
-  updateManyOrdersConnection(
-    after: ID
-    before: ID
-
-    """Updates to document content"""
-    data: OrderUpdateManyInput!
-    first: Int
-    last: Int
-    skip: Int
-
-    """Documents to apply update on"""
-    where: OrderManyWhereInput
-  ): OrderConnection!
-
   """Update many products"""
   updateManyProducts(
     """Updates to document content"""
@@ -6936,9 +6081,6 @@ type Mutation {
     where: TourManyWhereInput
   ): TourConnection!
 
-  """Update one order"""
-  updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
-
   """Update one product"""
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
 
@@ -6957,9 +6099,6 @@ type Mutation {
   """Upsert one blog"""
   upsertBlog(upsert: BlogUpsertInput!, where: BlogWhereUniqueInput!): Blog
 
-  """Upsert one booking"""
-  upsertBooking(upsert: BookingUpsertInput!, where: BookingWhereUniqueInput!): Booking
-
   """Upsert one destination"""
   upsertDestination(upsert: DestinationUpsertInput!, where: DestinationWhereUniqueInput!): Destination
 
@@ -6968,9 +6107,6 @@ type Mutation {
 
   """Upsert one email"""
   upsertEmail(upsert: EmailUpsertInput!, where: EmailWhereUniqueInput!): Email
-
-  """Upsert one order"""
-  upsertOrder(upsert: OrderUpsertInput!, where: OrderWhereUniqueInput!): Order
 
   """Upsert one product"""
   upsertProduct(upsert: ProductUpsertInput!, where: ProductWhereUniqueInput!): Product
@@ -6989,567 +6125,6 @@ interface Node {
 
   """The Stage of an object"""
   stage: Stage!
-}
-
-type Order implements Node {
-  """The time the document was created"""
-  createdAt: DateTime!
-
-  """User that created this document"""
-  createdBy(
-    """
-    Sets the locale of the resolved parent document as the only locale in the query's subtree.
-    
-    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
-    """
-    forceParentLocale: Boolean
-
-    """
-    Allows to optionally override locale filtering behaviour in the query's subtree.
-    
-    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
-    """
-    locales: [Locale!]
-  ): User
-
-  """Get the document in other stages"""
-  documentInStages(
-    """Decides if the current stage should be included or not"""
-    includeCurrent: Boolean! = false
-
-    """
-    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
-    """
-    inheritLocale: Boolean! = false
-
-    """Potential stages that should be returned"""
-    stages: [Stage!]! = [DRAFT, PUBLISHED]
-  ): [Order!]!
-
-  """List of Order versions"""
-  history(
-    limit: Int! = 10
-    skip: Int! = 0
-
-    """
-    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
-    """
-    stageOverride: Stage
-  ): [Version!]!
-
-  """The unique identifier"""
-  id: ID!
-
-  """The time the document was published. Null on documents in draft stage."""
-  publishedAt: DateTime
-
-  """User that last published this document"""
-  publishedBy(
-    """
-    Sets the locale of the resolved parent document as the only locale in the query's subtree.
-    
-    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
-    """
-    forceParentLocale: Boolean
-
-    """
-    Allows to optionally override locale filtering behaviour in the query's subtree.
-    
-    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
-    """
-    locales: [Locale!]
-  ): User
-  scheduledIn(
-    after: String
-    before: String
-    first: Int
-
-    """
-    Sets the locale of the resolved parent document as the only locale in the query's subtree.
-    
-    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
-    """
-    forceParentLocale: Boolean
-    last: Int
-
-    """
-    Allows to optionally override locale filtering behaviour in the query's subtree.
-    
-    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
-    """
-    locales: [Locale!]
-    skip: Int
-    where: ScheduledOperationWhereInput
-  ): [ScheduledOperation!]!
-
-  """System stage field"""
-  stage: Stage!
-
-  """The time the document was updated"""
-  updatedAt: DateTime!
-
-  """User that last updated this document"""
-  updatedBy(
-    """
-    Sets the locale of the resolved parent document as the only locale in the query's subtree.
-    
-    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
-    """
-    forceParentLocale: Boolean
-
-    """
-    Allows to optionally override locale filtering behaviour in the query's subtree.
-    
-    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
-    """
-    locales: [Locale!]
-  ): User
-}
-
-input OrderConnectInput {
-  """
-  Allow to specify document position in list of connected documents, will default to appending at end of list
-  """
-  position: ConnectPositionInput
-
-  """Document to connect"""
-  where: OrderWhereUniqueInput!
-}
-
-"""A connection to a list of items."""
-type OrderConnection {
-  aggregate: Aggregate!
-
-  """A list of edges."""
-  edges: [OrderEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-}
-
-input OrderCreateInput {
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input OrderCreateManyInlineInput {
-  """Connect multiple existing Order documents"""
-  connect: [OrderWhereUniqueInput!]
-
-  """Create and connect multiple existing Order documents"""
-  create: [OrderCreateInput!]
-}
-
-input OrderCreateOneInlineInput {
-  """Connect one existing Order document"""
-  connect: OrderWhereUniqueInput
-
-  """Create and connect one Order document"""
-  create: OrderCreateInput
-}
-
-"""An edge in a connection."""
-type OrderEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-
-  """The item at the end of the edge."""
-  node: Order!
-}
-
-"""Identifies documents"""
-input OrderManyWhereInput {
-  """Logical AND on all given filters."""
-  AND: [OrderWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [OrderWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [OrderWhereInput!]
-
-  """Contains search across all appropriate fields."""
-  _search: String
-  createdAt: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  createdAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime]
-  createdBy: UserWhereInput
-  documentInStages_every: OrderWhereStageInput
-  documentInStages_none: OrderWhereStageInput
-  documentInStages_some: OrderWhereStageInput
-  id: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID]
-
-  """Any other value that exists and is not equal to the given value."""
-  id_not: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values not ending with the given string"""
-  id_not_ends_with: ID
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID]
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-  publishedAt: DateTime
-
-  """All values greater than the given value."""
-  publishedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  publishedAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  publishedAt_in: [DateTime]
-
-  """All values less than the given value."""
-  publishedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  publishedAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  publishedAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  publishedAt_not_in: [DateTime]
-  publishedBy: UserWhereInput
-  scheduledIn_every: ScheduledOperationWhereInput
-  scheduledIn_none: ScheduledOperationWhereInput
-  scheduledIn_some: ScheduledOperationWhereInput
-  updatedAt: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  updatedAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime]
-  updatedBy: UserWhereInput
-}
-
-enum OrderOrderByInput {
-  createdAt_ASC
-  createdAt_DESC
-  id_ASC
-  id_DESC
-  publishedAt_ASC
-  publishedAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-input OrderUpdateInput {
-  """No fields in update input"""
-  _: String
-}
-
-input OrderUpdateManyInlineInput {
-  """Connect multiple existing Order documents"""
-  connect: [OrderConnectInput!]
-
-  """Create and connect multiple Order documents"""
-  create: [OrderCreateInput!]
-
-  """Delete multiple Order documents"""
-  delete: [OrderWhereUniqueInput!]
-
-  """Disconnect multiple Order documents"""
-  disconnect: [OrderWhereUniqueInput!]
-
-  """
-  Override currently-connected documents with multiple existing Order documents
-  """
-  set: [OrderWhereUniqueInput!]
-
-  """Update multiple Order documents"""
-  update: [OrderUpdateWithNestedWhereUniqueInput!]
-
-  """Upsert multiple Order documents"""
-  upsert: [OrderUpsertWithNestedWhereUniqueInput!]
-}
-
-input OrderUpdateManyInput {
-  """No fields in updateMany data input"""
-  _: String
-}
-
-input OrderUpdateManyWithNestedWhereInput {
-  """Update many input"""
-  data: OrderUpdateManyInput!
-
-  """Document search"""
-  where: OrderWhereInput!
-}
-
-input OrderUpdateOneInlineInput {
-  """Connect existing Order document"""
-  connect: OrderWhereUniqueInput
-
-  """Create and connect one Order document"""
-  create: OrderCreateInput
-
-  """Delete currently connected Order document"""
-  delete: Boolean
-
-  """Disconnect currently connected Order document"""
-  disconnect: Boolean
-
-  """Update single Order document"""
-  update: OrderUpdateWithNestedWhereUniqueInput
-
-  """Upsert single Order document"""
-  upsert: OrderUpsertWithNestedWhereUniqueInput
-}
-
-input OrderUpdateWithNestedWhereUniqueInput {
-  """Document to update"""
-  data: OrderUpdateInput!
-
-  """Unique document search"""
-  where: OrderWhereUniqueInput!
-}
-
-input OrderUpsertInput {
-  """Create document if it didn't exist"""
-  create: OrderCreateInput!
-
-  """Update document if it exists"""
-  update: OrderUpdateInput!
-}
-
-input OrderUpsertWithNestedWhereUniqueInput {
-  """Upsert data"""
-  data: OrderUpsertInput!
-
-  """Unique document search"""
-  where: OrderWhereUniqueInput!
-}
-
-"""
-This contains a set of filters that can be used to compare values internally
-"""
-input OrderWhereComparatorInput {
-  """
-  This field can be used to request to check if the entry is outdated by internal comparison
-  """
-  outdated_to: Boolean
-}
-
-"""Identifies documents"""
-input OrderWhereInput {
-  """Logical AND on all given filters."""
-  AND: [OrderWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [OrderWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [OrderWhereInput!]
-
-  """Contains search across all appropriate fields."""
-  _search: String
-  createdAt: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  createdAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime]
-  createdBy: UserWhereInput
-  documentInStages_every: OrderWhereStageInput
-  documentInStages_none: OrderWhereStageInput
-  documentInStages_some: OrderWhereStageInput
-  id: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID]
-
-  """Any other value that exists and is not equal to the given value."""
-  id_not: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values not ending with the given string"""
-  id_not_ends_with: ID
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID]
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-  publishedAt: DateTime
-
-  """All values greater than the given value."""
-  publishedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  publishedAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  publishedAt_in: [DateTime]
-
-  """All values less than the given value."""
-  publishedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  publishedAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  publishedAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  publishedAt_not_in: [DateTime]
-  publishedBy: UserWhereInput
-  scheduledIn_every: ScheduledOperationWhereInput
-  scheduledIn_none: ScheduledOperationWhereInput
-  scheduledIn_some: ScheduledOperationWhereInput
-  updatedAt: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """Any other value that exists and is not equal to the given value."""
-  updatedAt_not: DateTime
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime]
-  updatedBy: UserWhereInput
-}
-
-"""
-The document in stages filter allows specifying a stage entry to cross compare the same document between different stages
-"""
-input OrderWhereStageInput {
-  """Logical AND on all given filters."""
-  AND: [OrderWhereStageInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [OrderWhereStageInput!]
-
-  """Logical OR on all given filters."""
-  OR: [OrderWhereStageInput!]
-
-  """
-  This field contains fields which can be set as true or false to specify an internal comparison
-  """
-  compareWithParent: OrderWhereComparatorInput
-
-  """Specify the stage to compare with"""
-  stage: Stage
-}
-
-"""References Order record uniquely"""
-input OrderWhereUniqueInput {
-  id: ID
 }
 
 """Information about pagination in a connection."""
@@ -8406,16 +6981,18 @@ enum ProductPriceOrderByInput {
   quantity_DESC
 }
 
-union ProductPriceParent = Destination | Product
+union ProductPriceParent = Destination | Product | Tour
 
 input ProductPriceParentConnectInput {
   Destination: DestinationConnectInput
   Product: ProductConnectInput
+  Tour: TourConnectInput
 }
 
 input ProductPriceParentCreateInput {
   Destination: DestinationCreateInput
   Product: ProductCreateInput
+  Tour: TourCreateInput
 }
 
 input ProductPriceParentCreateManyInlineInput {
@@ -8437,6 +7014,7 @@ input ProductPriceParentCreateOneInlineInput {
 input ProductPriceParentUpdateInput {
   Destination: DestinationUpdateInput
   Product: ProductUpdateInput
+  Tour: TourUpdateInput
 }
 
 input ProductPriceParentUpdateManyInlineInput {
@@ -8467,6 +7045,7 @@ input ProductPriceParentUpdateManyInlineInput {
 input ProductPriceParentUpdateManyWithNestedWhereInput {
   Destination: DestinationUpdateManyWithNestedWhereInput
   Product: ProductUpdateManyWithNestedWhereInput
+  Tour: TourUpdateManyWithNestedWhereInput
 }
 
 input ProductPriceParentUpdateOneInlineInput {
@@ -8492,21 +7071,25 @@ input ProductPriceParentUpdateOneInlineInput {
 input ProductPriceParentUpdateWithNestedWhereUniqueInput {
   Destination: DestinationUpdateWithNestedWhereUniqueInput
   Product: ProductUpdateWithNestedWhereUniqueInput
+  Tour: TourUpdateWithNestedWhereUniqueInput
 }
 
 input ProductPriceParentUpsertWithNestedWhereUniqueInput {
   Destination: DestinationUpsertWithNestedWhereUniqueInput
   Product: ProductUpsertWithNestedWhereUniqueInput
+  Tour: TourUpsertWithNestedWhereUniqueInput
 }
 
 input ProductPriceParentWhereInput {
   Destination: DestinationWhereInput
   Product: ProductWhereInput
+  Tour: TourWhereInput
 }
 
 input ProductPriceParentWhereUniqueInput {
   Destination: DestinationWhereUniqueInput
   Product: ProductWhereUniqueInput
+  Tour: TourWhereUniqueInput
 }
 
 input ProductPriceUpdateInput {
@@ -9284,68 +7867,6 @@ type Query {
     where: BlogWhereInput
   ): BlogConnection!
 
-  """Retrieve a single booking"""
-  booking(
-    """
-    Defines which locales should be returned.
-    
-    Note that `Booking` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
-    """
-    locales: [Locale!]! = [en]
-    stage: Stage! = PUBLISHED
-    where: BookingWhereUniqueInput!
-  ): Booking
-
-  """Retrieve document version"""
-  bookingVersion(where: VersionWhereInput!): DocumentVersion
-
-  """Retrieve multiple bookings"""
-  bookings(
-    after: String
-    before: String
-    first: Int
-    last: Int
-
-    """
-    Defines which locales should be returned.
-    
-    Note that `Booking` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
-    """
-    locales: [Locale!]! = [en]
-    orderBy: BookingOrderByInput
-    skip: Int
-    stage: Stage! = PUBLISHED
-    where: BookingWhereInput
-  ): [Booking!]!
-
-  """Retrieve multiple bookings using the Relay connection interface"""
-  bookingsConnection(
-    after: String
-    before: String
-    first: Int
-    last: Int
-
-    """
-    Defines which locales should be returned.
-    
-    Note that `Booking` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
-    """
-    locales: [Locale!]! = [en]
-    orderBy: BookingOrderByInput
-    skip: Int
-    stage: Stage! = PUBLISHED
-    where: BookingWhereInput
-  ): BookingConnection!
-
   """Retrieve a single destination"""
   destination(
     """
@@ -9548,68 +8069,6 @@ type Query {
     locales: [Locale!]! = [en]
     stage: Stage! = PUBLISHED
   ): Node
-
-  """Retrieve a single order"""
-  order(
-    """
-    Defines which locales should be returned.
-    
-    Note that `Order` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
-    """
-    locales: [Locale!]! = [en]
-    stage: Stage! = PUBLISHED
-    where: OrderWhereUniqueInput!
-  ): Order
-
-  """Retrieve document version"""
-  orderVersion(where: VersionWhereInput!): DocumentVersion
-
-  """Retrieve multiple orders"""
-  orders(
-    after: String
-    before: String
-    first: Int
-    last: Int
-
-    """
-    Defines which locales should be returned.
-    
-    Note that `Order` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
-    """
-    locales: [Locale!]! = [en]
-    orderBy: OrderOrderByInput
-    skip: Int
-    stage: Stage! = PUBLISHED
-    where: OrderWhereInput
-  ): [Order!]!
-
-  """Retrieve multiple orders using the Relay connection interface"""
-  ordersConnection(
-    after: String
-    before: String
-    first: Int
-    last: Int
-
-    """
-    Defines which locales should be returned.
-    
-    Note that `Order` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
-    
-    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
-    """
-    locales: [Locale!]! = [en]
-    orderBy: OrderOrderByInput
-    skip: Int
-    stage: Stage! = PUBLISHED
-    where: OrderWhereInput
-  ): OrderConnection!
 
   """Retrieve a single product"""
   product(
@@ -10189,7 +8648,7 @@ type ScheduledOperation implements Node {
   ): User
 }
 
-union ScheduledOperationAffectedDocument = Asset | Blog | Booking | Destination | Document | Email | Order | Product | Shop | Tour
+union ScheduledOperationAffectedDocument = Asset | Blog | Destination | Document | Email | Product | Shop | Tour
 
 input ScheduledOperationConnectInput {
   """
@@ -12554,6 +11013,27 @@ type Tour implements Node {
     """Potential stages that should be returned"""
     stages: [Stage!]! = [DRAFT, PUBLISHED]
   ): [Tour!]!
+  headerImage(
+    """
+    Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+    
+    Note that `headerImage` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `headerImage` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): Asset
 
   """List of Tour versions"""
   history(
@@ -12568,6 +11048,35 @@ type Tour implements Node {
 
   """The unique identifier"""
   id: ID!
+  price(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `price` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `price` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: ProductPriceOrderByInput
+    skip: Int
+    where: ProductPriceWhereInput
+  ): [ProductPrice!]!
   product(
     after: String
     before: String
@@ -12670,6 +11179,7 @@ type Tour implements Node {
     """
     locales: [Locale!]
   ): Shop
+  shortDescription: String
   slug: String
 
   """System stage field"""
@@ -12728,8 +11238,11 @@ input TourCreateInput {
   createdAt: DateTime
   description: RichTextAST
   destination: TourDestinationCreateManyInlineInput
+  headerImage: AssetCreateOneInlineInput
+  price: ProductPriceCreateManyInlineInput
   product: TourProductCreateManyInlineInput
   shop: ShopCreateOneInlineInput
+  shortDescription: String
   slug: String
   title: String
   updatedAt: DateTime
@@ -12902,6 +11415,7 @@ input TourManyWhereInput {
   documentInStages_every: TourWhereStageInput
   documentInStages_none: TourWhereStageInput
   documentInStages_some: TourWhereStageInput
+  headerImage: AssetWhereInput
   id: ID
 
   """All values containing the given string."""
@@ -12930,6 +11444,9 @@ input TourManyWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  price_every: ProductPriceWhereInput
+  price_none: ProductPriceWhereInput
+  price_some: ProductPriceWhereInput
 
   """All values in which the union is empty"""
   product_empty: Boolean
@@ -12965,6 +11482,34 @@ input TourManyWhereInput {
   scheduledIn_none: ScheduledOperationWhereInput
   scheduledIn_some: ScheduledOperationWhereInput
   shop: ShopWhereInput
+  shortDescription: String
+
+  """All values containing the given string."""
+  shortDescription_contains: String
+
+  """All values ending with the given string."""
+  shortDescription_ends_with: String
+
+  """All values that are contained in given list."""
+  shortDescription_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortDescription_not: String
+
+  """All values not containing the given string."""
+  shortDescription_not_contains: String
+
+  """All values not ending with the given string"""
+  shortDescription_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortDescription_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortDescription_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortDescription_starts_with: String
   slug: String
 
   """All values containing the given string."""
@@ -13053,6 +11598,8 @@ enum TourOrderByInput {
   id_DESC
   publishedAt_ASC
   publishedAt_DESC
+  shortDescription_ASC
+  shortDescription_DESC
   slug_ASC
   slug_DESC
   title_ASC
@@ -13159,8 +11706,11 @@ input TourProductWhereUniqueInput {
 input TourUpdateInput {
   description: RichTextAST
   destination: TourDestinationUpdateManyInlineInput
+  headerImage: AssetUpdateOneInlineInput
+  price: ProductPriceUpdateManyInlineInput
   product: TourProductUpdateManyInlineInput
   shop: ShopUpdateOneInlineInput
+  shortDescription: String
   slug: String
   title: String
 }
@@ -13192,6 +11742,7 @@ input TourUpdateManyInlineInput {
 
 input TourUpdateManyInput {
   description: RichTextAST
+  shortDescription: String
   title: String
 }
 
@@ -13304,6 +11855,7 @@ input TourWhereInput {
   documentInStages_every: TourWhereStageInput
   documentInStages_none: TourWhereStageInput
   documentInStages_some: TourWhereStageInput
+  headerImage: AssetWhereInput
   id: ID
 
   """All values containing the given string."""
@@ -13332,6 +11884,9 @@ input TourWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  price_every: ProductPriceWhereInput
+  price_none: ProductPriceWhereInput
+  price_some: ProductPriceWhereInput
 
   """All values in which the union is empty"""
   product_empty: Boolean
@@ -13367,6 +11922,34 @@ input TourWhereInput {
   scheduledIn_none: ScheduledOperationWhereInput
   scheduledIn_some: ScheduledOperationWhereInput
   shop: ShopWhereInput
+  shortDescription: String
+
+  """All values containing the given string."""
+  shortDescription_contains: String
+
+  """All values ending with the given string."""
+  shortDescription_ends_with: String
+
+  """All values that are contained in given list."""
+  shortDescription_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortDescription_not: String
+
+  """All values not containing the given string."""
+  shortDescription_not_contains: String
+
+  """All values not ending with the given string"""
+  shortDescription_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortDescription_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortDescription_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortDescription_starts_with: String
   slug: String
 
   """All values containing the given string."""

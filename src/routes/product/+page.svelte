@@ -2,6 +2,7 @@
 	import BlogCard from '$components/Card/BlogCard.svelte';
 	import DestinationCard from '$components/Card/DestinationCard.svelte';
 	import ProductCard from '$components/Card/ProductCard.svelte';
+	import GridContainer from '$components/Container/GridContainer.svelte';
 	import PageTitle from '$components/SEO/PageTitle.svelte';
 	import Title from '$components/Title/Title.svelte';
 	import type { PageData } from '$houdini/types/src/routes/product/$houdini';
@@ -14,11 +15,11 @@
 <Title title="Products" subtitle="Find something to buy!" />
 <PageTitle title="Products" />
 {#if $Products.data}
-	<div class="grid grid-cols-3 gap-10 mx-auto mt-16">
+	<GridContainer>
 		{#each $Products.data.products as product}
 			<ProductCard {product} />
 		{/each}
-	</div>
+	</GridContainer>
 {/if}
 <!-- <pre>
 	{JSON.stringify($Destinations.data, null, 4)}

@@ -8,12 +8,14 @@
 	<div class="absolute z-[1] h-full w-full bg-black opacity-60" />
 	<div class="absolute z-[2] flex h-full w-full flex-col items-center justify-center gap-5">
 		<h1
-			class="flex flex-col text-6xl font-semibold text-center text-white font-italiana md:text-7xl"
+			class="flex flex-col text-5xl font-semibold text-center text-white font-italiana md:text-7xl"
 		>
 			Enjoy Balinese
 			<span class="" bind:this={textSpan}>Hidden Gem</span>
 		</h1>
-		<h3 class="text-2xl font-thin text-white">Discover the enchanting secrets of les village</h3>
+		<h3 class="text-base font-thin text-center text-white md:text-2xl">
+			Discover the enchanting secrets of les village
+		</h3>
 		<a href="/destination">
 			<SolidButton>Let's Explore</SolidButton>
 		</a>
