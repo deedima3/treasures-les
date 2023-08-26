@@ -78,6 +78,17 @@ type Shop = {
     } | null;
 }
 
+type Tour = {
+    readonly slug: string | null;
+    readonly title: string | null;
+    readonly shortDescription: string | null;
+    readonly headerImage: {
+        readonly url: string;
+        readonly width: number | null;
+        readonly height: number | null;
+    } | null;
+}
+
 type LocationType = {
     type: 'destination' | 'product' | 'shop'
 }
@@ -92,5 +103,6 @@ export type {
     Destination,
     Product,
     MapProduct,
-    TypedLocation
+    TypedLocation,
+    Tour
 }

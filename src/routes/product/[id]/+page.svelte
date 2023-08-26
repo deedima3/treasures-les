@@ -21,12 +21,12 @@
 		<h2 class="text-base">
 			{$ProductDetail.data.product.subtitle}
 		</h2>
-		<div class="flex w-full gap-5">
-			<div class="w-2/3">
+		<div class="flex flex-col w-full gap-5 md:flex-row">
+			<div class="w-full md:w-2/3">
 				<Carousel imageArray={$ProductDetail.data.product.image} />
 			</div>
 			{#if $ProductDetail.data.product.title && $ProductDetail.data.product.shortLocation && $ProductDetail.data.product.shop}
-				<div class="w-1/4">
+				<div class="w-full md:w-1/4">
 					<ProductPriceCard
 						title={$ProductDetail.data.product.title}
 						shortLocation={$ProductDetail.data.product.shortLocation}
@@ -36,7 +36,7 @@
 				</div>
 			{/if}
 		</div>
-		<div class="w-2/3 mt-10">
+		<div class="w-full mt-10 md:w-2/3">
 			{#if $ProductDetail.data.product.description?.markdown}
 				<MarkdownDisplayer content={$ProductDetail.data.product.description?.markdown} />
 			{/if}

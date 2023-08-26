@@ -1,10 +1,12 @@
 <script lang="ts">
-	import type { ShortDestination } from '$interfaces/api.interfaces';
+	import type { Destination } from '$interfaces/data.interfaces';
 
-	export let destination: ShortDestination;
+	export let destination: Destination;
 
-	const croppedDescription = (description: string) => {
-		return `${description.slice(0, 100)}`;
+	const truncateText = (text: string | null) => {
+		if (text) {
+			return `${text.slice(0, 200)}...`;
+		}
 	};
 </script>
 
@@ -18,11 +20,11 @@
 				{destination.title}
 			</h6>
 			<p class="text-xs">
-				{croppedDescription(destination.shortDescription)}
+				{truncateText(destination.shortDescription)}
 			</p>
 		</div>
 		<div class="h-[300px] w-[200px] md:h-[400px] md:w-[300px]">
-			<img src={destination.image.url} alt="Alt" class="object-cover w-full h-full" />
+			<img src={destination.headerImage?.url} alt="Alt" class="object-cover w-full h-full" />
 		</div>
 	</div>
 </a>

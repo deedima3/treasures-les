@@ -1,9 +1,9 @@
 <script lang="ts">
 	import FeaturedServiceCard from '$components/Card/FeaturedServiceCard.svelte';
 	import Title from '$components/Title/Title.svelte';
-	import type { ShortDestination } from '$interfaces/api.interfaces';
+	import type { Destination } from '$interfaces/data.interfaces';
 
-	export let destinations: ShortDestination[];
+	export let destinations: Destination[];
 
 	let carouselBind: HTMLElement;
 	let scrolled = 0;

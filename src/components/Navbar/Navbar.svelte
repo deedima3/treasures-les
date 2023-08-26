@@ -4,6 +4,8 @@
 	import OutlinedButton from '$components/Button/OutlinedButton.svelte';
 	import HamburgerButton from '$components/Button/HamburgerButton.svelte';
 	import MobileNav from './MobileNav.svelte';
+	import { goto } from '$app/navigation';
+	import { generateWhatsappLink } from '$utils/utils';
 
 	let isOpen = false;
 	let y: number = 0;
@@ -27,7 +29,13 @@
 		{/each}
 	</div>
 	<div class="items-center hidden w-max md:flex">
-		<OutlinedButton>IDR</OutlinedButton>
+		<OutlinedButton
+			onClick={() => {
+				goto(
+					generateWhatsappLink('+6285155334059', 'Hi, i would like to know more about the website!')
+				);
+			}}>Contact Us</OutlinedButton
+		>
 	</div>
 	<div class="block w-8 h-8 md:hidden">
 		<HamburgerButton isOpenState={isOpen} onClick={onToggle} />

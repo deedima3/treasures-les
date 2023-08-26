@@ -1,0 +1,12 @@
+query Tours {
+    tours {
+        slug
+        title   
+        shortDescription
+        headerImage {
+            url
+            width
+            height
+        }
+    }
+}

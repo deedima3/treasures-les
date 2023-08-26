@@ -1,0 +1,42 @@
+query Featured {
+	destinations(where: {
+        isFeatured : true
+    }) {
+		title
+        subtitle
+		shortDescription
+		slug
+        price {
+			isPromotion
+			price
+			quantity
+			stage
+			amountName
+		}
+		headerImage {
+			url
+			height
+			width
+		}
+    }
+    products(where: {
+        isFeatured : true
+    }) {
+		title
+        subtitle
+		shortDescription
+		slug
+        price {
+			isPromotion
+			price
+			quantity
+			stage
+			amountName
+		}
+		headerImage {
+			url
+			height
+			width
+		}
+    }
+}

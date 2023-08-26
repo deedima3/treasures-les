@@ -1,6 +1,3 @@
-import translationData from 'locales/en.json'
-import { template, crush } from 'radash'
-
 export function formatNumber(number: number) {
     const formatter = new Intl.NumberFormat("id-ID", {
         style: "currency",
@@ -13,13 +10,6 @@ export function formatNumber(number: number) {
 export const indonesianLocale = new Intl.Locale('id', {
     region: 'ID', hourCycle: 'h24', calendar: 'gregory'
 });
-
-export const translate = (key: string, templateData: { [key: string]: string } = {}) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    console.log("Key", key)
-    console.log(templateData)
-    return template(crush(translationData)[key], templateData)
-}
 
 export const getInitials = (name: string) => {
     const parts = name.split(' ')
@@ -34,4 +24,8 @@ export const getInitials = (name: string) => {
 
 export const checkRoleAccess = (currentRole: number, roleAccess: number[]) => {
     return roleAccess.includes(currentRole)
+}
+
+export const generateWhatsappLink = (phoneNumber: string, message: string) => {
+    return `https://wa.me/${phoneNumber}?text=${encodeURI(message)}`
 }

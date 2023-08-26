@@ -14,7 +14,7 @@ const navbarData: NavbarData[] = [
         route: "/product"
     },
     {
-        title: "Interactive Map",
+        title: "Map",
         route: "/map"
     },
     {
