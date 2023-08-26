@@ -1,5 +1,6 @@
 query MapsLocation {
   destinations {
+    slug
     title
     shortDescription
     headerImage {
@@ -13,6 +14,7 @@ query MapsLocation {
     }
   }
   products {
+    slug
     title
     subtitle
     shortDescription

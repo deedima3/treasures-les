@@ -95,9 +95,9 @@ type LocationType = {
 
 type TypedLocation = LocationType & Location
 
-type SimpledDestination = Omit<Destination, 'price' | 'subtitle' | 'slug'>
+type SimpledDestination = Omit<Destination, 'price' | 'subtitle'>
 
-type SimpledProduct = Omit<Product, 'price' | 'subtitle' | 'slug'>
+type SimpledProduct = Omit<Product, 'price' | 'subtitle'>
 
 type DestinationLocation = SimpledDestination & {
     location: Location

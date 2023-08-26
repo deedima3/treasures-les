@@ -5,6 +5,7 @@
 	import type { DestinationLocation, Location, ProductLocation } from '$interfaces/data.interfaces';
 	import Icon from './Marker.svelte';
 	import MapPopupCard from '$components/Card/MapPopupCard.svelte';
+	import PopupMap from '$components/Card/PopupMap.svelte';
 
 	let mapElement: HTMLDivElement;
 	let map: Map;
@@ -31,27 +32,26 @@
 				})
 				.addTo(map);
 
-			locationDestination.map(({ location, title, shortDescription, headerImage }) => {
+			locationDestination.map(({ location, title, shortDescription, headerImage, slug }) => {
 				let marker = new leaflet.Marker(new leaflet.LatLng(location.latitude, location.longitude), {
 					icon: icons.roundedIcon
 				});
 				let popupComponent: any;
 				marker.bindPopup(() => {
 					let container = leaflet.DomUtil.create('div');
-					popupComponent = () => {
-						let c = new MapPopupCard({
-							target: container,
-							props: {
-								service: {
-									headerImage: headerImage,
-									title: title,
-									shortDescription: shortDescription
-								}
-							}
-						});
-
-						return c;
-					};
+					let c = new PopupMap({
+						target: container,
+						props: {
+							service: {
+								headerImage: headerImage,
+								title: title,
+								shortDescription: shortDescription,
+								slug: slug
+							},
+							href: `/destination/${slug}`
+						}
+					});
+					popupComponent = c;
 					return container;
 				});
 
@@ -68,29 +68,36 @@
 				marker.addTo(map);
 			});
 
-			locationProduct.map(({ location, title, shortDescription, headerImage }) => {
+			locationProduct.map(({ location, title, shortDescription, headerImage, slug }) => {
 				let marker = new leaflet.Marker(new leaflet.LatLng(location.latitude, location.longitude), {
 					icon: icons.roundedIcon
 				});
 				let popupComponent: any;
-				marker.bindPopup(() => {
-					let container = leaflet.DomUtil.create('div');
-					popupComponent = () => {
-						let c = new MapPopupCard({
-							target: container,
-							props: {
-								service: {
-									headerImage: headerImage,
-									title: title,
-									shortDescription: shortDescription
+				marker.bindPopup(
+					() => {
+						let container = leaflet.DomUtil.create('div');
+						popupComponent = () => {
+							let c = new PopupMap({
+								target: container,
+								props: {
+									service: {
+										headerImage: headerImage,
+										title: title,
+										shortDescription: shortDescription,
+										slug: slug
+									},
+									href: `/product/${slug}`
 								}
-							}
-						});
+							});
 
-						return c;
-					};
-					return container;
-				});
+							return c;
+						};
+						return container;
+					},
+					{
+						autoClose: true
+					}
+				);
 
 				marker.on('popupclose', () => {
 					if (popupComponent) {
