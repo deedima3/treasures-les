@@ -1,13 +1,16 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import ColoredButton from '$components/Button/ColoredButton.svelte';
 	import SolidButton from '$components/Button/SolidButton.svelte';
 	import PriceText from '$components/Text/PriceText.svelte';
 	import type { Price } from '$interfaces/data.interfaces';
+	import { generateWhatsappLink } from '$utils/utils';
 	import { Icon, MapPin } from 'svelte-hero-icons';
 
 	export let title: string;
 	export let shortLocation: string;
 	export let prices: Price[];
+	export let phoneNumber: string;
 
 	$: price = prices[prices.length - 1];
 </script>
@@ -31,7 +34,11 @@
 		</div>
 	{/if}
 	<div class="flex justify-end mt-10">
-		<ColoredButton>Book Now</ColoredButton>
+		<ColoredButton
+			onClick={() => {
+				goto(generateWhatsappLink(phoneNumber, `I Want to know more about ${title}`));
+			}}>Book Now</ColoredButton
+		>
 	</div>
 	<div class="absolute top-0 right-0 p-3 font-bold text-white rounded-bl-md bg-brand-dark">
 		On Sale

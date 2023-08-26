@@ -1,0 +1,61 @@
+query TourDetail($id: String) {
+  tour(where: {slug: $id}) {
+    title
+    subtitle
+    headerImage {
+        url
+        height
+        width
+    }
+    description {
+        markdown
+    }
+    price {
+		isPromotion
+		price
+		quantity
+		stage
+		amountName
+	}
+    destination {
+      ... on Destination {
+        title
+        subtitle
+        shortDescription
+        slug
+        price {
+          isPromotion
+          price
+          quantity
+          stage
+          amountName
+        }
+        headerImage {
+          url
+          height
+          width
+        }
+      }
+    }
+    product {
+      ... on Product {
+		title
+        subtitle
+		shortDescription
+		slug
+        price {
+			isPromotion
+			price
+			quantity
+			stage
+			amountName
+		}
+		headerImage {
+			url
+			height
+			width
+		}
+    }
+    }
+  }
+}

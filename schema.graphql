@@ -11184,6 +11184,7 @@ type Tour implements Node {
 
   """System stage field"""
   stage: Stage!
+  subtitle: String
   title: String
 
   """The time the document was updated"""
@@ -11244,6 +11245,7 @@ input TourCreateInput {
   shop: ShopCreateOneInlineInput
   shortDescription: String
   slug: String
+  subtitle: String
   title: String
   updatedAt: DateTime
 }
@@ -11538,6 +11540,34 @@ input TourManyWhereInput {
 
   """All values starting with the given string."""
   slug_starts_with: String
+  subtitle: String
+
+  """All values containing the given string."""
+  subtitle_contains: String
+
+  """All values ending with the given string."""
+  subtitle_ends_with: String
+
+  """All values that are contained in given list."""
+  subtitle_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  subtitle_not: String
+
+  """All values not containing the given string."""
+  subtitle_not_contains: String
+
+  """All values not ending with the given string"""
+  subtitle_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  subtitle_not_in: [String]
+
+  """All values not starting with the given string."""
+  subtitle_not_starts_with: String
+
+  """All values starting with the given string."""
+  subtitle_starts_with: String
   title: String
 
   """All values containing the given string."""
@@ -11602,6 +11632,8 @@ enum TourOrderByInput {
   shortDescription_DESC
   slug_ASC
   slug_DESC
+  subtitle_ASC
+  subtitle_DESC
   title_ASC
   title_DESC
   updatedAt_ASC
@@ -11712,6 +11744,7 @@ input TourUpdateInput {
   shop: ShopUpdateOneInlineInput
   shortDescription: String
   slug: String
+  subtitle: String
   title: String
 }
 
@@ -11743,6 +11776,7 @@ input TourUpdateManyInlineInput {
 input TourUpdateManyInput {
   description: RichTextAST
   shortDescription: String
+  subtitle: String
   title: String
 }
 
@@ -11978,6 +12012,34 @@ input TourWhereInput {
 
   """All values starting with the given string."""
   slug_starts_with: String
+  subtitle: String
+
+  """All values containing the given string."""
+  subtitle_contains: String
+
+  """All values ending with the given string."""
+  subtitle_ends_with: String
+
+  """All values that are contained in given list."""
+  subtitle_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  subtitle_not: String
+
+  """All values not containing the given string."""
+  subtitle_not_contains: String
+
+  """All values not ending with the given string"""
+  subtitle_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  subtitle_not_in: [String]
+
+  """All values not starting with the given string."""
+  subtitle_not_starts_with: String
+
+  """All values starting with the given string."""
+  subtitle_starts_with: String
   title: String
 
   """All values containing the given string."""

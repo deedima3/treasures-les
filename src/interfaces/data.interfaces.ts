@@ -95,6 +95,18 @@ type LocationType = {
 
 type TypedLocation = LocationType & Location
 
+type SimpledDestination = Omit<Destination, 'price' | 'subtitle' | 'slug'>
+
+type SimpledProduct = Omit<Product, 'price' | 'subtitle' | 'slug'>
+
+type DestinationLocation = SimpledDestination & {
+    location: Location
+}
+
+type ProductLocation = SimpledProduct & {
+    location: Location
+}
+
 export type {
     Blog,
     Image,
@@ -104,5 +116,9 @@ export type {
     Product,
     MapProduct,
     TypedLocation,
-    Tour
+    Tour,
+    DestinationLocation,
+    ProductLocation,
+    SimpledDestination,
+    SimpledProduct
 }

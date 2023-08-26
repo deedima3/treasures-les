@@ -25,12 +25,13 @@
 			<div class="w-full md:w-2/3">
 				<Carousel imageArray={$ProductDetail.data.product.image} />
 			</div>
-			{#if $ProductDetail.data.product.title && $ProductDetail.data.product.shortLocation && $ProductDetail.data.product.shop}
+			{#if $ProductDetail.data.product.title && $ProductDetail.data.product.shortLocation && $ProductDetail.data.product.shop && $ProductDetail.data.product.shop.waNumber}
 				<div class="w-full md:w-1/4">
 					<ProductPriceCard
 						title={$ProductDetail.data.product.title}
 						shortLocation={$ProductDetail.data.product.shortLocation}
 						prices={$ProductDetail.data.product.price}
+						phoneNumber={$ProductDetail.data.product.shop.waNumber}
 					/>
 					<ShopCard shop={$ProductDetail.data.product.shop} />
 				</div>
