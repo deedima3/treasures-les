@@ -35,7 +35,7 @@
 <div class="relative rounded-md">
 	{#key selectedCarousel}
 		<div
-			class="w-[1000px] h-[500px]"
+			class="w-full md:w-[1000px] h-[500px]"
 			in:fly={{
 				delay: 250,
 				duration: 300,
