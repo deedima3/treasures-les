@@ -7,7 +7,12 @@
 </script>
 
 <a
-	class={`text-brand-dark text-md ${$page.url.pathname.includes(navItem.route) ? 'font-bold' : ''}`}
+	class={`text-brand-dark text-md ${
+		$page.url.pathname === navItem.route ||
+		($page.url.pathname.startsWith(navItem.route) && navItem.route !== '/')
+			? 'font-bold'
+			: ''
+	}`}
 	href={navItem.route}
 	on:click={onClick}
 >
