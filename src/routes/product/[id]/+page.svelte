@@ -1,9 +1,7 @@
 <script lang="ts">
-	import DestinationPriceCard from '$components/Card/DestinationPriceCard.svelte';
 	import ProductPriceCard from '$components/Card/ProductPriceCard.svelte';
-	import ShopCard from '$components/Card/ShopCard.svelte';
+	import ShopProfileCard from '$components/Card/ShopProfileCard.svelte';
 	import Carousel from '$components/Carousel/Carousel.svelte';
-	import Leaflet from '$components/Map/Leaflet.svelte';
 	import MarkdownDisplayer from '$components/Markdown/MarkdownDisplayer.svelte';
 	import PageTitle from '$components/SEO/PageTitle.svelte';
 	import type { PageData } from '$houdini/types/src/routes/product/[id]/$houdini';
@@ -33,7 +31,7 @@
 						prices={$ProductDetail.data.product.price}
 						phoneNumber={$ProductDetail.data.product.shop.waNumber}
 					/>
-					<ShopCard shop={$ProductDetail.data.product.shop} />
+					<ShopProfileCard shop={$ProductDetail.data.product.shop} />
 				</div>
 			{/if}
 		</div>
@@ -44,7 +42,3 @@
 		</div>
 	</div>
 {/if}
-
-<!-- <pre>
-	{JSON.stringify($ProductDetail, null, 4)}
-</pre> -->
