@@ -76,6 +76,7 @@ type Shop = {
         readonly width: number | null;
         readonly height: number | null;
     } | null;
+    readonly shortDescription: string | null;
 }
 
 type Tour = {
