@@ -1,28 +1,28 @@
 <script lang="ts">
-	import ColoredButton from '$components/Button/ColoredButton.svelte';
 	import type { Shop } from '$interfaces/data.interfaces';
-	import SocialIcons from '@rodneylab/svelte-social-icons';
 
 	export let shop: Shop;
 
-	const generateWa = (number: string | null) => {
-		return `https://wa.me/${number}`;
+	const truncateText = (text: string | null) => {
+		if (text) {
+			return `${text.slice(0, 200)}...`;
+		}
 	};
 </script>
 
-<div class="flex items-center w-full gap-5 px-2 py-5 bg-white rounded-md shadow-md">
-	<div class="w-20 h-20 rounded-md">
-		<img src={shop.shopLogo?.url} alt="Shop Logo" class="w-full h-full" />
+<a
+	class="w-full md:w-[400px] bg-white rounded-md flex flex-col shadow-md hover:translate-x-1 hover:scale-105 transition-all ease-in-out cursor-pointer"
+	href={`/shop/${shop.slug}`}
+>
+	<div class="w-full rounded-md h-[300px] overflow-clip">
+		<img src={shop.shopLogo?.url} alt="Header" class="object-cover w-full h-full" />
 	</div>
-	<div class="flex flex-col">
-		<p class="text-lg font-bold">{shop.shopName}</p>
-		<div class="flex gap-5">
-			<a href={generateWa(shop.waNumber)}>
-				<SocialIcons network="whatsapp" width={30} height={30} />
-			</a>
-			<a href={shop.instagramLink}>
-				<SocialIcons network="instagram" width={30} height={30} />
-			</a>
-		</div>
+	<div class="w-full px-2 py-3">
+		<h2 class="text-xl font-bold">
+			{shop.shopName}
+		</h2>
+		<p class="text-sm md:text-base">
+			{truncateText(shop.shortDescription)}
+		</p>
 	</div>
-</div>
+</a>
