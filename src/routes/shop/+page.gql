@@ -1,0 +1,14 @@
+query Shops {
+  shops {
+    slug
+    shopName
+    waNumber
+    instagramLink
+    shopLogo {
+      height
+      width
+      url
+    }
+    shortDescription
+  }
+}

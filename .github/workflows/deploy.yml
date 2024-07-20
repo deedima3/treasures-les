@@ -1,13 +1,9 @@
-name: Deploy
+name: Deploy to Deno
 on:
   push:
     branches: main
   pull_request:
     branches: main
-
-env:
-  PUBLIC_BASE_API : ${{secrets.BASE_API}}
-  PUBLIC_API_TOKEN : ${{secrets.API_TOKEN}}
 
 jobs:
   deploy:
@@ -20,7 +16,7 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Deno
         uses: denoland/setup-deno@v1
@@ -28,25 +24,17 @@ jobs:
           deno-version: v1.x
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: Cache pnpm modules
-        uses: actions/cache@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-
-
-      - name: Install pnpm and node_modules
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7.3.0
+          version: 9
 
       - name: Install dependencies
-        run : pnpm install
+        run: pnpm install
 
       - name: Build site
         run: pnpm build

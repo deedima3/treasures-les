@@ -1,0 +1,31 @@
+query ShopDetail($id: String) {
+  shop(where: {slug: $id}) {
+    shopName
+    shortDescription
+    shopLogo {
+      height
+      width
+      url
+    }
+    shopProduct {
+      ... on Product {
+        price {
+          price
+          quantity
+          isAvailable
+          amountName
+          isPromotion
+          stage
+        }
+        title
+        shortLocation
+        slug
+      }
+    }
+    waNumber
+    description {
+      markdown
+    }
+    gmapsLink
+  }
+}

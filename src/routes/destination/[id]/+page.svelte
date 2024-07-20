@@ -1,6 +1,6 @@
 <script lang="ts">
 	import DestinationPriceCard from '$components/Card/DestinationPriceCard.svelte';
-	import ShopCard from '$components/Card/ShopCard.svelte';
+	import ShopProfileCard from '$components/Card/ShopProfileCard.svelte';
 	import Carousel from '$components/Carousel/Carousel.svelte';
 	import Leaflet from '$components/Map/Leaflet.svelte';
 	import MarkdownDisplayer from '$components/Markdown/MarkdownDisplayer.svelte';
@@ -32,7 +32,7 @@
 						prices={$DestinationDetail.data.destination.price}
 						phoneNumber={$DestinationDetail.data.destination.shop.waNumber}
 					/>
-					<ShopCard shop={$DestinationDetail.data.destination.shop} />
+					<ShopProfileCard shop={$DestinationDetail.data.destination.shop} />
 				</div>
 			{/if}
 		</div>
@@ -49,7 +49,3 @@
 		</div>
 	</div>
 {/if}
-
-<!-- <pre>
-	{JSON.stringify($DestinationDetail, null, 4)}
-</pre> -->

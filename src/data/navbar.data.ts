@@ -2,6 +2,10 @@ import type { NavbarData } from "$interfaces/api.interfaces"
 
 const navbarData: NavbarData[] = [
     {
+        title: "Home",
+        route: "/"
+    },
+    {
         title: "News Portal",
         route: "/blog"
     },
@@ -14,8 +18,8 @@ const navbarData: NavbarData[] = [
         route: "/product"
     },
     {
-        title: "Map",
-        route: "/map"
+        title: "Shop",
+        route: "/shop"
     },
     {
         title: "Tour",
