@@ -3,7 +3,7 @@ type Aggregate {
 }
 
 """Asset system model"""
-type Asset implements Node {
+type Asset implements Entity & Node {
   """The time the document was created"""
   createdAt(
     """
@@ -1190,7 +1190,7 @@ type BatchPayload {
   count: Long!
 }
 
-type Blog implements Node {
+type Blog implements Entity & Node {
   category: BlogCategory
   content: RichText
 
@@ -2099,7 +2099,7 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date
 """
 scalar DateTime
 
-type Destination implements Node {
+type Destination implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
@@ -3143,7 +3143,7 @@ enum Destinationcategory {
   religious
 }
 
-type Document implements Node {
+type Document implements Entity & Node {
   content: RichText
 
   """The time the document was created"""
@@ -3979,7 +3979,7 @@ input DocumentWhereUniqueInput {
   slug: String
 }
 
-type Email implements Node {
+type Email implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
@@ -4596,6 +4596,51 @@ input EmailWhereStageInput {
 """References Email record uniquely"""
 input EmailWhereUniqueInput {
   id: ID
+}
+
+"""An object with an ID"""
+interface Entity {
+  """The id of the object."""
+  id: ID!
+
+  """The Stage of an object"""
+  stage: Stage!
+}
+
+"""
+This enumeration holds all typenames that implement the Entity interface. Components and models implement the Entity interface.
+"""
+enum EntityTypeName {
+  """Asset system model"""
+  Asset
+  Blog
+  Destination
+  Document
+  Email
+  Product
+  ProductPrice
+
+  """Scheduled Operation system model"""
+  ScheduledOperation
+
+  """Scheduled Release system model"""
+  ScheduledRelease
+  Shop
+  Tour
+
+  """User system model"""
+  User
+}
+
+"""Allows to specify input to query models and components directly"""
+input EntityWhereInput {
+  """The ID of an object"""
+  id: ID!
+  locale: Locale
+  stage: Stage!
+
+  """The Type name of an object"""
+  typename: EntityTypeName!
 }
 
 scalar Hex
@@ -6145,7 +6190,7 @@ type PageInfo {
   startCursor: String
 }
 
-type Product implements Node {
+type Product implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
@@ -6771,7 +6816,7 @@ enum ProductOrderByInput {
   updatedAt_DESC
 }
 
-type ProductPrice {
+type ProductPrice implements Entity {
   amountName: String
 
   """The unique identifier"""
@@ -8054,6 +8099,15 @@ type Query {
   ): EmailConnection!
 
   """Fetches an object given its ID"""
+  entities(
+    """Defines which locales to query for"""
+    locales: [Locale!]
+
+    """The where parameters to query components"""
+    where: [EntityWhereInput!]!
+  ): [Entity!]
+
+  """Fetches an object given its ID"""
   node(
     """The ID of an object"""
     id: ID!
@@ -8483,7 +8537,7 @@ type RichText {
 scalar RichTextAST
 
 """Scheduled Operation system model"""
-type ScheduledOperation implements Node {
+type ScheduledOperation implements Entity & Node {
   affectedDocuments(
     after: String
     before: String
@@ -9123,7 +9177,7 @@ input ScheduledOperationWhereUniqueInput {
 }
 
 """Scheduled Release system model"""
-type ScheduledRelease implements Node {
+type ScheduledRelease implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
@@ -9940,7 +9994,7 @@ input ScheduledReleaseWhereUniqueInput {
   id: ID
 }
 
-type Shop implements Node {
+type Shop implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
@@ -9966,6 +10020,7 @@ type Shop implements Node {
     """
     locales: [Locale!]
   ): User
+  description: RichText
 
   """Get the document in other stages"""
   documentInStages(
@@ -9980,6 +10035,7 @@ type Shop implements Node {
     """Potential stages that should be returned"""
     stages: [Stage!]! = [DRAFT, PUBLISHED]
   ): [Shop!]!
+  gmapsLink: String
 
   """List of Shop versions"""
   history(
@@ -10099,6 +10155,7 @@ type Shop implements Node {
     locales: [Locale!]
     skip: Int
   ): [ShopShopProduct!]!
+  shortDescription: String
   slug: String
 
   """System stage field"""
@@ -10155,11 +10212,14 @@ type ShopConnection {
 
 input ShopCreateInput {
   createdAt: DateTime
+  description: RichTextAST
+  gmapsLink: String
   instagramLink: String
   location: LocationInput
   shopLogo: AssetCreateOneInlineInput
   shopName: String
   shopProduct: ShopShopProductCreateManyInlineInput
+  shortDescription: String
   slug: String
   updatedAt: DateTime
   waNumber: String
@@ -10229,6 +10289,34 @@ input ShopManyWhereInput {
   documentInStages_every: ShopWhereStageInput
   documentInStages_none: ShopWhereStageInput
   documentInStages_some: ShopWhereStageInput
+  gmapsLink: String
+
+  """All values containing the given string."""
+  gmapsLink_contains: String
+
+  """All values ending with the given string."""
+  gmapsLink_ends_with: String
+
+  """All values that are contained in given list."""
+  gmapsLink_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  gmapsLink_not: String
+
+  """All values not containing the given string."""
+  gmapsLink_not_contains: String
+
+  """All values not ending with the given string"""
+  gmapsLink_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  gmapsLink_not_in: [String]
+
+  """All values not starting with the given string."""
+  gmapsLink_not_starts_with: String
+
+  """All values starting with the given string."""
+  gmapsLink_starts_with: String
   id: ID
 
   """All values containing the given string."""
@@ -10348,6 +10436,34 @@ input ShopManyWhereInput {
   Matches if the union contains at least one connection to the provided item to the filter
   """
   shopProduct_some: ShopShopProductWhereInput
+  shortDescription: String
+
+  """All values containing the given string."""
+  shortDescription_contains: String
+
+  """All values ending with the given string."""
+  shortDescription_ends_with: String
+
+  """All values that are contained in given list."""
+  shortDescription_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortDescription_not: String
+
+  """All values not containing the given string."""
+  shortDescription_not_contains: String
+
+  """All values not ending with the given string"""
+  shortDescription_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortDescription_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortDescription_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortDescription_starts_with: String
   slug: String
 
   """All values containing the given string."""
@@ -10432,6 +10548,8 @@ input ShopManyWhereInput {
 enum ShopOrderByInput {
   createdAt_ASC
   createdAt_DESC
+  gmapsLink_ASC
+  gmapsLink_DESC
   id_ASC
   id_DESC
   instagramLink_ASC
@@ -10440,6 +10558,8 @@ enum ShopOrderByInput {
   publishedAt_DESC
   shopName_ASC
   shopName_DESC
+  shortDescription_ASC
+  shortDescription_DESC
   slug_ASC
   slug_DESC
   updatedAt_ASC
@@ -10560,11 +10680,14 @@ input ShopShopProductWhereUniqueInput {
 }
 
 input ShopUpdateInput {
+  description: RichTextAST
+  gmapsLink: String
   instagramLink: String
   location: LocationInput
   shopLogo: AssetUpdateOneInlineInput
   shopName: String
   shopProduct: ShopShopProductUpdateManyInlineInput
+  shortDescription: String
   slug: String
   waNumber: String
 }
@@ -10595,9 +10718,12 @@ input ShopUpdateManyInlineInput {
 }
 
 input ShopUpdateManyInput {
+  description: RichTextAST
+  gmapsLink: String
   instagramLink: String
   location: LocationInput
   shopName: String
+  shortDescription: String
   waNumber: String
 }
 
@@ -10702,6 +10828,34 @@ input ShopWhereInput {
   documentInStages_every: ShopWhereStageInput
   documentInStages_none: ShopWhereStageInput
   documentInStages_some: ShopWhereStageInput
+  gmapsLink: String
+
+  """All values containing the given string."""
+  gmapsLink_contains: String
+
+  """All values ending with the given string."""
+  gmapsLink_ends_with: String
+
+  """All values that are contained in given list."""
+  gmapsLink_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  gmapsLink_not: String
+
+  """All values not containing the given string."""
+  gmapsLink_not_contains: String
+
+  """All values not ending with the given string"""
+  gmapsLink_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  gmapsLink_not_in: [String]
+
+  """All values not starting with the given string."""
+  gmapsLink_not_starts_with: String
+
+  """All values starting with the given string."""
+  gmapsLink_starts_with: String
   id: ID
 
   """All values containing the given string."""
@@ -10821,6 +10975,34 @@ input ShopWhereInput {
   Matches if the union contains at least one connection to the provided item to the filter
   """
   shopProduct_some: ShopShopProductWhereInput
+  shortDescription: String
+
+  """All values containing the given string."""
+  shortDescription_contains: String
+
+  """All values ending with the given string."""
+  shortDescription_ends_with: String
+
+  """All values that are contained in given list."""
+  shortDescription_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortDescription_not: String
+
+  """All values not containing the given string."""
+  shortDescription_not_contains: String
+
+  """All values not ending with the given string"""
+  shortDescription_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortDescription_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortDescription_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortDescription_starts_with: String
   slug: String
 
   """All values containing the given string."""
@@ -10945,7 +11127,7 @@ enum SystemDateTimeFieldVariation {
   LOCALIZATION
 }
 
-type Tour implements Node {
+type Tour implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
@@ -12130,7 +12312,7 @@ input UnpublishLocaleInput {
 }
 
 """User system model"""
-type User implements Node {
+type User implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
