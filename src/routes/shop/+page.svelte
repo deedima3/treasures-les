@@ -10,7 +10,11 @@
 	$: ({ Shops } = data);
 </script>
 
-<Title title="Shops" subtitle="Explore the local shop!" />
+<Title 
+	title="Shops" 
+	subtitle="Explore the local shop!" 
+	balineseScript="&#x1B15;&#x1B42;&#x1B26;&#x1B04;&#x1B2B;&#x1B24;&#x1B40;&#x1B2E;&#x1B26;&#x1B44;&#x1B5F;"
+/>
 <PageTitle title="Shops" />
 {#if $Shops.data}
 	<GridContainer>

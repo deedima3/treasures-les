@@ -10,7 +10,7 @@
 	};
 </script>
 
-<a href="/" class="flex-shrink-0" draggable="false">
+<a href={`/destination/${destination.slug}`} class="flex-shrink-0" draggable="false">
 	<div class="relative object-cover w-full h-full max-w-xs">
 		<div
 			class="absolute bg-gradient-to-b from-transparent via-transparent to-black z-[1] h-full w-full transition-all"
