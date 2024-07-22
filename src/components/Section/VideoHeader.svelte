@@ -9,9 +9,11 @@
 	<div class="absolute z-[2] flex h-full w-full flex-col items-center justify-center gap-5">
 		<h1
 			class="flex flex-col text-5xl font-semibold text-center text-white font-italiana md:text-7xl"
-		>
-			Enjoy Balinese
-			<span class="" bind:this={textSpan}>Hidden Gem</span>
+		>		
+			<span class="font-natya text-3xl font-light pb-4">
+				&#x1B27;&#x1B36;&#x1B32;&#x1B36;&#x1B22;&#x1B44;&#x1B2E;&#x1B42;&#x1B32;&#x1B44;&#x1B5F;
+			</span>
+			Visit Les
 		</h1>
 		<h3 class="text-base font-thin text-center text-white md:text-2xl">
 			Discover the enchanting secrets of les village

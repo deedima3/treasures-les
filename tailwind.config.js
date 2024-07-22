@@ -11,7 +11,10 @@ export default {
           white : "#EEEEEE",
           gray : "#B7B7B7"
         }
-      }
+      },
+      fontFamily: {
+        natya: ['Natya', 'sans-serif'],
+      },
     }
   },
   plugins: [

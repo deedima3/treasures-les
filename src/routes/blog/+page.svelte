@@ -13,6 +13,7 @@
 <Title
 	title="News Portal"
 	subtitle="Unveiling the Life of Les Village Community: Daily Life, Culture, and Traditions"
+	balineseScript="&#x1B29;&#x1B38;&#x1B24;&#x1B2C;&#x1B2E;&#x1B26;&#x1B24;&#x1B22;&#x1B44;&#x1B5F;"
 />
 <PageTitle title="Blog" />
 {#if $Blogs.data}

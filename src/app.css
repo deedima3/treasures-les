@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Natya';
+    src: url('/font/natya.ttf') format('truetype');
+}
