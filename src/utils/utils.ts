@@ -29,3 +29,26 @@ export const checkRoleAccess = (currentRole: number, roleAccess: number[]) => {
 export const generateWhatsappLink = (phoneNumber: string, message: string) => {
     return `https://wa.me/${phoneNumber}?text=${encodeURI(message)}`
 }
+
+export function getFormattedDateTime(timeZone: string): string {
+    const now = new Date().toLocaleString('en-GB', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    });
+
+    const [date, time] = now.split(', ');
+
+    // Reformat date from DD/MM/YYYY to YYYY-MM-DD
+    const formattedDate = date.replace(/\//g, '-')
+        .split('-')
+        .reverse()
+        .join('-');
+
+    return `${formattedDate} ${time}`;
+}
