@@ -47,7 +47,6 @@
         "axios": "^1.4.0",
         "dayjs": "^1.11.9",
         "felte": "^1.2.11",
-        "googleapis": "^140.0.1",
         "graphql": "^16.8.0",
         "graphql-request": "^6.1.0",
         "houdini": "^1.2.8",
