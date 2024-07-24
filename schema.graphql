@@ -2205,6 +2205,7 @@ type Destination implements Entity & Node {
     where: AssetWhereInput
   ): [Asset!]!
   isFeatured: Boolean
+  isVisible: Boolean
   location: Location
   price(
     after: String
@@ -2394,6 +2395,7 @@ input DestinationCreateInput {
   headerImage: AssetCreateOneInlineInput
   image: AssetCreateManyInlineInput
   isFeatured: Boolean
+  isVisible: Boolean
   location: LocationInput
   price: ProductPriceCreateManyInlineInput
   shop: ShopCreateOneInlineInput
@@ -2506,6 +2508,10 @@ input DestinationManyWhereInput {
 
   """Any other value that exists and is not equal to the given value."""
   isFeatured_not: Boolean
+  isVisible: Boolean
+
+  """Any other value that exists and is not equal to the given value."""
+  isVisible_not: Boolean
   price_every: ProductPriceWhereInput
   price_none: ProductPriceWhereInput
   price_some: ProductPriceWhereInput
@@ -2709,6 +2715,8 @@ enum DestinationOrderByInput {
   id_DESC
   isFeatured_ASC
   isFeatured_DESC
+  isVisible_ASC
+  isVisible_DESC
   publishedAt_ASC
   publishedAt_DESC
   shortDescription_ASC
@@ -2730,6 +2738,7 @@ input DestinationUpdateInput {
   headerImage: AssetUpdateOneInlineInput
   image: AssetUpdateManyInlineInput
   isFeatured: Boolean
+  isVisible: Boolean
   location: LocationInput
   price: ProductPriceUpdateManyInlineInput
   shop: ShopUpdateOneInlineInput
@@ -2769,6 +2778,7 @@ input DestinationUpdateManyInlineInput {
 input DestinationUpdateManyInput {
   description: RichTextAST
   isFeatured: Boolean
+  isVisible: Boolean
   location: LocationInput
   shortDescription: String
   shortLocation: String
@@ -2913,6 +2923,10 @@ input DestinationWhereInput {
 
   """Any other value that exists and is not equal to the given value."""
   isFeatured_not: Boolean
+  isVisible: Boolean
+
+  """Any other value that exists and is not equal to the given value."""
+  isVisible_not: Boolean
   price_every: ProductPriceWhereInput
   price_none: ProductPriceWhereInput
   price_some: ProductPriceWhereInput
@@ -6296,6 +6310,7 @@ type Product implements Entity & Node {
     where: AssetWhereInput
   ): [Asset!]!
   isFeatured: Boolean
+  isVisible: Boolean
   location: [Location!]!
   price(
     after: String
@@ -6485,6 +6500,7 @@ input ProductCreateInput {
   headerImage: AssetCreateOneInlineInput
   image: AssetCreateManyInlineInput
   isFeatured: Boolean
+  isVisible: Boolean
   location: [LocationInput!]
   price: ProductPriceCreateManyInlineInput
   shop: ShopCreateOneInlineInput
@@ -6597,6 +6613,10 @@ input ProductManyWhereInput {
 
   """Any other value that exists and is not equal to the given value."""
   isFeatured_not: Boolean
+  isVisible: Boolean
+
+  """Any other value that exists and is not equal to the given value."""
+  isVisible_not: Boolean
   price_every: ProductPriceWhereInput
   price_none: ProductPriceWhereInput
   price_some: ProductPriceWhereInput
@@ -6800,6 +6820,8 @@ enum ProductOrderByInput {
   id_DESC
   isFeatured_ASC
   isFeatured_DESC
+  isVisible_ASC
+  isVisible_DESC
   publishedAt_ASC
   publishedAt_DESC
   shortDescription_ASC
@@ -7372,6 +7394,7 @@ input ProductUpdateInput {
   headerImage: AssetUpdateOneInlineInput
   image: AssetUpdateManyInlineInput
   isFeatured: Boolean
+  isVisible: Boolean
   location: [LocationInput!]
   price: ProductPriceUpdateManyInlineInput
   shop: ShopUpdateOneInlineInput
@@ -7411,6 +7434,7 @@ input ProductUpdateManyInlineInput {
 input ProductUpdateManyInput {
   description: RichTextAST
   isFeatured: Boolean
+  isVisible: Boolean
   location: [LocationInput!]
   shortDescription: String
   shortLocation: String
@@ -7555,6 +7579,10 @@ input ProductWhereInput {
 
   """Any other value that exists and is not equal to the given value."""
   isFeatured_not: Boolean
+  isVisible: Boolean
+
+  """Any other value that exists and is not equal to the given value."""
+  isVisible_not: Boolean
   price_every: ProductPriceWhereInput
   price_none: ProductPriceWhereInput
   price_some: ProductPriceWhereInput
@@ -11230,6 +11258,7 @@ type Tour implements Entity & Node {
 
   """The unique identifier"""
   id: ID!
+  isFeatured: Boolean
   price(
     after: String
     before: String
@@ -11422,6 +11451,7 @@ input TourCreateInput {
   description: RichTextAST
   destination: TourDestinationCreateManyInlineInput
   headerImage: AssetCreateOneInlineInput
+  isFeatured: Boolean
   price: ProductPriceCreateManyInlineInput
   product: TourProductCreateManyInlineInput
   shop: ShopCreateOneInlineInput
@@ -11628,6 +11658,10 @@ input TourManyWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  isFeatured: Boolean
+
+  """Any other value that exists and is not equal to the given value."""
+  isFeatured_not: Boolean
   price_every: ProductPriceWhereInput
   price_none: ProductPriceWhereInput
   price_some: ProductPriceWhereInput
@@ -11808,6 +11842,8 @@ enum TourOrderByInput {
   createdAt_DESC
   id_ASC
   id_DESC
+  isFeatured_ASC
+  isFeatured_DESC
   publishedAt_ASC
   publishedAt_DESC
   shortDescription_ASC
@@ -11921,6 +11957,7 @@ input TourUpdateInput {
   description: RichTextAST
   destination: TourDestinationUpdateManyInlineInput
   headerImage: AssetUpdateOneInlineInput
+  isFeatured: Boolean
   price: ProductPriceUpdateManyInlineInput
   product: TourProductUpdateManyInlineInput
   shop: ShopUpdateOneInlineInput
@@ -11957,6 +11994,7 @@ input TourUpdateManyInlineInput {
 
 input TourUpdateManyInput {
   description: RichTextAST
+  isFeatured: Boolean
   shortDescription: String
   subtitle: String
   title: String
@@ -12100,6 +12138,10 @@ input TourWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  isFeatured: Boolean
+
+  """Any other value that exists and is not equal to the given value."""
+  isFeatured_not: Boolean
   price_every: ProductPriceWhereInput
   price_none: ProductPriceWhereInput
   price_some: ProductPriceWhereInput

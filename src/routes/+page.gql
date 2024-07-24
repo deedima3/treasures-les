@@ -1,42 +1,49 @@
 query Featured {
-	destinations(where: {
-        isFeatured : true
-    }) {
-		title
-        subtitle
-		shortDescription
-		slug
-        price {
-			isPromotion
-			price
-			quantity
-			stage
-			amountName
-		}
-		headerImage {
-			url
-			height
-			width
-		}
+  destinations(where: {isFeatured: true}) {
+    title
+    subtitle
+    shortDescription
+    slug
+    price {
+      isPromotion
+      price
+      quantity
+      stage
+      amountName
     }
-    products(where: {
-        isFeatured : true
-    }) {
-		title
-        subtitle
-		shortDescription
-		slug
-        price {
-			isPromotion
-			price
-			quantity
-			stage
-			amountName
-		}
-		headerImage {
-			url
-			height
-			width
-		}
+    headerImage {
+      url
+      height
+      width
     }
+  }
+  products(where: {isFeatured: true}) {
+    title
+    subtitle
+    shortDescription
+    slug
+    price {
+      isPromotion
+      price
+      quantity
+      stage
+      amountName
+    }
+    headerImage {
+      url
+      height
+      width
+    }
+  }
+  tours {
+    title
+    subtitle
+    slug
+    shortDescription
+    headerImage {
+      width
+      url
+      height
+    }
+  }
 }

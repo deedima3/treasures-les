@@ -6,10 +6,10 @@ export default {
       colors : {
         brand : {
           eigengrau : "#0e1111",
-          dark : "#194E78",
+          dark : "#1D2E36",
           light : "#2D7FBF",
           white : "#EEEEEE",
-          gray : "#B7B7B7"
+          gray : "#7B9220",
         }
       },
       fontFamily: {
