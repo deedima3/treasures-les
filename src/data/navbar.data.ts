@@ -6,8 +6,8 @@ const navbarData: NavbarData[] = [
         route: "/"
     },
     {
-        title: "News Portal",
-        route: "/blog"
+        title: "Heritage",
+        route: "/heritage"
     },
     {
         title: "Destination",

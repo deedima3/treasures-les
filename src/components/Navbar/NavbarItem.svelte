@@ -7,7 +7,7 @@
 </script>
 
 <a
-	class={`text-brand-dark text-md ${
+	class={`text-brand-primaryGreen text-md ${
 		$page.url.pathname === navItem.route ||
 		($page.url.pathname.startsWith(navItem.route) && navItem.route !== '/')
 			? 'font-bold'
