@@ -35,7 +35,7 @@ query Featured {
       width
     }
   }
-  tours {
+  tours(where: {isFeatured: true}) {
     title
     subtitle
     slug

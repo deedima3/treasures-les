@@ -32,10 +32,10 @@
 	{/each}
 </svelte:head>
 
-<div class="relative rounded-md">
+<div class="relative rounded-md md:pl-5">
 	{#key selectedCarousel}
 		<div
-			class="w-full md:w-[1000px] h-[500px]"
+			class="w-full md:w-[950px] h-[500px]"
 			in:fly={{
 				delay: 250,
 				duration: 300,

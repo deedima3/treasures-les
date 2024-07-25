@@ -4,6 +4,7 @@ query Products {
         subtitle
 		shortDescription
 		slug
+		isVisible
         price {
 			isPromotion
 			price

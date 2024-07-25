@@ -18,10 +18,6 @@ const navbarData: NavbarData[] = [
         route: "/product"
     },
     {
-        title: "Shop",
-        route: "/shop"
-    },
-    {
         title: "Tour",
         route: '/tour'
     }

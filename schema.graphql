@@ -216,6 +216,35 @@ type Asset implements Entity & Node {
 
   """The unique identifier"""
   id: ID!
+  imageTour(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `imageTour` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `imageTour` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: TourOrderByInput
+    skip: Int
+    where: TourWhereInput
+  ): [Tour!]!
 
   """System Locale field"""
   locale: Locale!
@@ -463,6 +492,7 @@ input AssetCreateInput {
   headerImageProduct: ProductCreateManyInlineInput
   headerImageTour: TourCreateManyInlineInput
   height: Float
+  imageTour: TourCreateManyInlineInput
 
   """
   Inline mutations for managing document localizations excluding the default locale
@@ -606,6 +636,9 @@ input AssetManyWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  imageTour_every: TourWhereInput
+  imageTour_none: TourWhereInput
+  imageTour_some: TourWhereInput
   productImageDestination_every: DestinationWhereInput
   productImageDestination_none: DestinationWhereInput
   productImageDestination_some: DestinationWhereInput
@@ -707,6 +740,7 @@ input AssetUpdateInput {
   headerImageProduct: ProductUpdateManyInlineInput
   headerImageTour: TourUpdateManyInlineInput
   height: Float
+  imageTour: TourUpdateManyInlineInput
 
   """Manage document localizations"""
   localizations: AssetUpdateLocalizationsInput
@@ -1026,6 +1060,9 @@ input AssetWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  imageTour_every: TourWhereInput
+  imageTour_none: TourWhereInput
+  imageTour_some: TourWhereInput
   mimeType: String
 
   """All values containing the given string."""
@@ -11258,6 +11295,35 @@ type Tour implements Entity & Node {
 
   """The unique identifier"""
   id: ID!
+  image(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+    
+    Note that `image` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `image` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: AssetOrderByInput
+    skip: Int
+    where: AssetWhereInput
+  ): [Asset!]!
   isFeatured: Boolean
   price(
     after: String
@@ -11391,6 +11457,7 @@ type Tour implements Entity & Node {
     locales: [Locale!]
   ): Shop
   shortDescription: String
+  shortLocation: String
   slug: String
 
   """System stage field"""
@@ -11451,11 +11518,13 @@ input TourCreateInput {
   description: RichTextAST
   destination: TourDestinationCreateManyInlineInput
   headerImage: AssetCreateOneInlineInput
+  image: AssetCreateManyInlineInput
   isFeatured: Boolean
   price: ProductPriceCreateManyInlineInput
   product: TourProductCreateManyInlineInput
   shop: ShopCreateOneInlineInput
   shortDescription: String
+  shortLocation: String
   slug: String
   subtitle: String
   title: String
@@ -11658,6 +11727,9 @@ input TourManyWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  image_every: AssetWhereInput
+  image_none: AssetWhereInput
+  image_some: AssetWhereInput
   isFeatured: Boolean
 
   """Any other value that exists and is not equal to the given value."""
@@ -11728,6 +11800,34 @@ input TourManyWhereInput {
 
   """All values starting with the given string."""
   shortDescription_starts_with: String
+  shortLocation: String
+
+  """All values containing the given string."""
+  shortLocation_contains: String
+
+  """All values ending with the given string."""
+  shortLocation_ends_with: String
+
+  """All values that are contained in given list."""
+  shortLocation_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortLocation_not: String
+
+  """All values not containing the given string."""
+  shortLocation_not_contains: String
+
+  """All values not ending with the given string"""
+  shortLocation_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortLocation_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortLocation_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortLocation_starts_with: String
   slug: String
 
   """All values containing the given string."""
@@ -11848,6 +11948,8 @@ enum TourOrderByInput {
   publishedAt_DESC
   shortDescription_ASC
   shortDescription_DESC
+  shortLocation_ASC
+  shortLocation_DESC
   slug_ASC
   slug_DESC
   subtitle_ASC
@@ -11957,11 +12059,13 @@ input TourUpdateInput {
   description: RichTextAST
   destination: TourDestinationUpdateManyInlineInput
   headerImage: AssetUpdateOneInlineInput
+  image: AssetUpdateManyInlineInput
   isFeatured: Boolean
   price: ProductPriceUpdateManyInlineInput
   product: TourProductUpdateManyInlineInput
   shop: ShopUpdateOneInlineInput
   shortDescription: String
+  shortLocation: String
   slug: String
   subtitle: String
   title: String
@@ -11996,6 +12100,7 @@ input TourUpdateManyInput {
   description: RichTextAST
   isFeatured: Boolean
   shortDescription: String
+  shortLocation: String
   subtitle: String
   title: String
 }
@@ -12138,6 +12243,9 @@ input TourWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  image_every: AssetWhereInput
+  image_none: AssetWhereInput
+  image_some: AssetWhereInput
   isFeatured: Boolean
 
   """Any other value that exists and is not equal to the given value."""
@@ -12208,6 +12316,34 @@ input TourWhereInput {
 
   """All values starting with the given string."""
   shortDescription_starts_with: String
+  shortLocation: String
+
+  """All values containing the given string."""
+  shortLocation_contains: String
+
+  """All values ending with the given string."""
+  shortLocation_ends_with: String
+
+  """All values that are contained in given list."""
+  shortLocation_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortLocation_not: String
+
+  """All values not containing the given string."""
+  shortLocation_not_contains: String
+
+  """All values not ending with the given string"""
+  shortLocation_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortLocation_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortLocation_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortLocation_starts_with: String
   slug: String
 
   """All values containing the given string."""

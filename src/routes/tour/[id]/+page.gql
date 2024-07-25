@@ -3,20 +3,25 @@ query TourDetail($id: String) {
     title
     subtitle
     headerImage {
-        url
-        height
-        width
+      url
+      height
+      width
+    }
+    image {
+      url
+      height
+      width
     }
     description {
-        markdown
+      markdown
     }
     price {
-		isPromotion
-		price
-		quantity
-		stage
-		amountName
-	}
+      isPromotion
+      price
+      quantity
+      stage
+      amountName
+    }
     destination {
       ... on Destination {
         title
@@ -39,23 +44,36 @@ query TourDetail($id: String) {
     }
     product {
       ... on Product {
-		title
+        title
         subtitle
-		shortDescription
-		slug
+        shortDescription
+        slug
         price {
-			isPromotion
-			price
-			quantity
-			stage
-			amountName
-		}
-		headerImage {
-			url
-			height
-			width
-		}
+          isPromotion
+          price
+          quantity
+          stage
+          amountName
+        }
+        headerImage {
+          url
+          height
+          width
+        }
+      }
     }
+    shop {
+      instagramLink
+      shopName
+      waNumber
+      slug
+      shopLogo {
+        url
+        width
+        height
+      }
+      gmapsLink
+      shortDescription
     }
   }
 }
