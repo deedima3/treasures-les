@@ -16,7 +16,7 @@
 	$: ({ Featured } = data);
 </script>
 
-<PageTitle title="Pariwisata Les" />
+<PageTitle title="Home" />
 <VideoHeader />
 <div class="flex flex-col md:flex-row md:space-x-4 px-4 md:p-32 md:pb-0 mt-16 md:mt-0">
 	<div class="w-full md:w-1/2 text-left md:pr-4 order-2 md:order-1">

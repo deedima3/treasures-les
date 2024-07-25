@@ -21,7 +21,9 @@
 {#if $Products.data}
 	<GridContainer>
 		{#each $Products.data.products as product}
-			<ProductCard {product} />
+			{#if product.isVisible}
+				<ProductCard {product} />
+			{/if}
 		{/each}
 	</GridContainer>
 {/if}

@@ -16,8 +16,8 @@
 		<PageTitle title={$DestinationDetail.data.destination.title} />
 	{/if}
 	<div class="flex flex-col w-full mx-auto max-w-screen-2xl">
-		<h1 class="text-4xl font-bold">{$DestinationDetail.data.destination.title}</h1>
-		<h2 class="text-base">
+		<h1 class="text-4xl font-bold md:pl-5">{$DestinationDetail.data.destination.title}</h1>
+		<h2 class="text-base md:pl-5">
 			{$DestinationDetail.data.destination.subtitle}
 		</h2>
 		<div class="flex flex-col w-full gap-5 md:flex-row">
