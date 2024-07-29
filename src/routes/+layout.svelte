@@ -8,10 +8,12 @@
 	import { Toaster } from 'svelte-french-toast';
 	import NavLayout from '../components/Layout/NavLayout.svelte';
 	import Favicon from '$components/SEO/Favicon.svelte';
+	import ChatButton from '$components/Button/ChatButton.svelte';
 </script>
 
 <Favicon />
 <NavLayout>
+	<ChatButton />
 	<slot />
 </NavLayout>
 <Toaster />
