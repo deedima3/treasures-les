@@ -2,20 +2,20 @@ import type { FooterData } from "$interfaces/api.interfaces"
 import { generateWhatsappLink } from "$utils/utils"
 
 const FOOTER_MESSAGE = "Hi, I know your contact from the website"
-const BUMDES_NUMBER = '+621238392010'
-const PERBEKEL_NUMBER = '+628137393449'
-const KOOR_NUMBER = '+6287865963687'
+const BUMDES_NUMBER = '+6281238392010'
+const PERBEKEL_NUMBER = '03623303967'
+const KOOR_NUMBER = '+6285338391881'
 
 const footerData: FooterData[] = [
     {
         title: "Follow Us",
         link: [
             {
-                route: "https://www.facebook.com/wanwa.angenes",
+                route: "https://www.facebook.com/profile.php?id=100076945958412",
                 title: "Facebook"
             },
             {
-                route: "https://www.instagram.com/pemdesles",
+                route: "https://www.instagram.com/girisegare",
                 title: "Instagram"
             },
             {
@@ -40,8 +40,8 @@ const footerData: FooterData[] = [
                 title: "Community Service Program (KKN)"
             },
             {
-                route: generateWhatsappLink(PERBEKEL_NUMBER, FOOTER_MESSAGE),
-                title: "Head of Village"
+                route: `tel:${PERBEKEL_NUMBER}`,
+                title: "Village Office"
             },
         ]
     },

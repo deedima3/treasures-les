@@ -9,9 +9,8 @@
 	import type { PageData } from '$houdini/types/src/routes/$houdini';
 	export let data: PageData;
 
-	import SolidButton from '$components/Button/SolidButton.svelte';
-	import { InMemorySubscriptions } from '$hoody/runtime/cache/subscription';
-	import DestinationPriceCard from '$components/Card/DestinationPriceCard.svelte';
+	import InstagramEmbed from '$components/Embed/InstagramEmbed.svelte';
+	import FacebookEmbed from '$components/Embed/FacebookEmbed.svelte';
 
 	$: ({ Featured } = data);
 </script>
@@ -73,3 +72,10 @@
 		</GridContainer>
 	</div>
 {/if}
+<div class="my-10">
+	<Title title="Social Media" subtitle="Join our vibrant community on social media!" />
+	<GridContainer>
+		<InstagramEmbed />
+		<FacebookEmbed />
+	</GridContainer>
+</div>
