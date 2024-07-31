@@ -1,0 +1,32 @@
+query AccommodationDetail($id: String) {
+	accommodation(where: { slug: $id }) {
+        id
+        title
+        subtitle
+        slug
+        shortDescription
+        shortLocation
+        headerImage {
+            width
+            url
+            height
+        }
+        otaLink
+        price {
+            amountName
+            isAvailable
+            isPromotion
+            price
+            quantity
+            stage
+        }
+        description {
+            markdown
+        }
+        image {
+            width
+            url
+            height
+        }
+	}
+}
