@@ -40,5 +40,6 @@ query ProductDetail($id: String) {
 		description {
 			markdown
 		}
+		youtubeLink
 	}
 }

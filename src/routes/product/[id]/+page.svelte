@@ -4,6 +4,7 @@
 	import Carousel from '$components/Carousel/Carousel.svelte';
 	import MarkdownDisplayer from '$components/Markdown/MarkdownDisplayer.svelte';
 	import PageTitle from '$components/SEO/PageTitle.svelte';
+	import { getYTVideoId } from '$utils/utils';
 	import type { PageData } from '$houdini/types/src/routes/product/[id]/$houdini';
 	export let data: PageData;
 
@@ -39,6 +40,19 @@
 			{#if $ProductDetail.data.product.description?.markdown}
 				<MarkdownDisplayer content={$ProductDetail.data.product.description?.markdown} />
 			{/if}
+			<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-1 px-5">
+				{#each $ProductDetail.data.product.youtubeLink as youtubeLink}
+					<iframe
+						class="w-full md:h-64"
+						src="https://www.youtube.com/embed/{getYTVideoId(youtubeLink)}"
+						title="YouTube Video"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						referrerpolicy="strict-origin-when-cross-origin"
+						allowfullscreen
+					/>
+				{/each}
+			</div>
 		</div>
 	</div>
 {/if}

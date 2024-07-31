@@ -1,5 +1,4 @@
 <script lang="ts">
-	import BlogCard from '$components/Card/BlogCard.svelte';
 	import DestinationCard from '$components/Card/DestinationCard.svelte';
 	import GridContainer from '$components/Container/GridContainer.svelte';
 	import PageTitle from '$components/SEO/PageTitle.svelte';
