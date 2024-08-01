@@ -1,3 +1,1035 @@
+type Accommodation implements Entity & Node {
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """User that created this document"""
+  createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+  description: RichText
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [DRAFT, PUBLISHED]
+  ): [Accommodation!]!
+  headerImage(
+    """
+    Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+    
+    Note that `headerImage` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `headerImage` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): Asset
+
+  """List of Accommodation versions"""
+  history(
+    limit: Int! = 10
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+
+  """The unique identifier"""
+  id: ID!
+  image(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+    
+    Note that `image` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `image` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: AssetOrderByInput
+    skip: Int
+    where: AssetWhereInput
+  ): [Asset!]!
+  otaLink: String
+  price(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `price` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `price` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: ProductPriceOrderByInput
+    skip: Int
+    where: ProductPriceWhereInput
+  ): [ProductPrice!]!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """User that last published this document"""
+  publishedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+  scheduledIn(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    skip: Int
+    where: ScheduledOperationWhereInput
+  ): [ScheduledOperation!]!
+  shortDescription: String
+  shortLocation: String
+  slug: String
+
+  """System stage field"""
+  stage: Stage!
+  subtitle: String
+  title: String
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """User that last updated this document"""
+  updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+}
+
+input AccommodationConnectInput {
+  """
+  Allow to specify document position in list of connected documents, will default to appending at end of list
+  """
+  position: ConnectPositionInput
+
+  """Document to connect"""
+  where: AccommodationWhereUniqueInput!
+}
+
+"""A connection to a list of items."""
+type AccommodationConnection {
+  aggregate: Aggregate!
+
+  """A list of edges."""
+  edges: [AccommodationEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+input AccommodationCreateInput {
+  createdAt: DateTime
+  description: RichTextAST
+  headerImage: AssetCreateOneInlineInput
+  image: AssetCreateManyInlineInput
+  otaLink: String
+  price: ProductPriceCreateManyInlineInput
+  shortDescription: String
+  shortLocation: String
+  slug: String
+  subtitle: String
+  title: String
+  updatedAt: DateTime
+}
+
+input AccommodationCreateManyInlineInput {
+  """Connect multiple existing Accommodation documents"""
+  connect: [AccommodationWhereUniqueInput!]
+
+  """Create and connect multiple existing Accommodation documents"""
+  create: [AccommodationCreateInput!]
+}
+
+input AccommodationCreateOneInlineInput {
+  """Connect one existing Accommodation document"""
+  connect: AccommodationWhereUniqueInput
+
+  """Create and connect one Accommodation document"""
+  create: AccommodationCreateInput
+}
+
+"""An edge in a connection."""
+type AccommodationEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Accommodation!
+}
+
+"""Identifies documents"""
+input AccommodationManyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AccommodationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccommodationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccommodationWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: AccommodationWhereStageInput
+  documentInStages_none: AccommodationWhereStageInput
+  documentInStages_some: AccommodationWhereStageInput
+  headerImage: AssetWhereInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  image_every: AssetWhereInput
+  image_none: AssetWhereInput
+  image_some: AssetWhereInput
+  otaLink: String
+
+  """All values containing the given string."""
+  otaLink_contains: String
+
+  """All values ending with the given string."""
+  otaLink_ends_with: String
+
+  """All values that are contained in given list."""
+  otaLink_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  otaLink_not: String
+
+  """All values not containing the given string."""
+  otaLink_not_contains: String
+
+  """All values not ending with the given string"""
+  otaLink_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  otaLink_not_in: [String]
+
+  """All values not starting with the given string."""
+  otaLink_not_starts_with: String
+
+  """All values starting with the given string."""
+  otaLink_starts_with: String
+  price_every: ProductPriceWhereInput
+  price_none: ProductPriceWhereInput
+  price_some: ProductPriceWhereInput
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  shortDescription: String
+
+  """All values containing the given string."""
+  shortDescription_contains: String
+
+  """All values ending with the given string."""
+  shortDescription_ends_with: String
+
+  """All values that are contained in given list."""
+  shortDescription_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortDescription_not: String
+
+  """All values not containing the given string."""
+  shortDescription_not_contains: String
+
+  """All values not ending with the given string"""
+  shortDescription_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortDescription_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortDescription_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortDescription_starts_with: String
+  shortLocation: String
+
+  """All values containing the given string."""
+  shortLocation_contains: String
+
+  """All values ending with the given string."""
+  shortLocation_ends_with: String
+
+  """All values that are contained in given list."""
+  shortLocation_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortLocation_not: String
+
+  """All values not containing the given string."""
+  shortLocation_not_contains: String
+
+  """All values not ending with the given string"""
+  shortLocation_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortLocation_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortLocation_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortLocation_starts_with: String
+  slug: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values that are contained in given list."""
+  slug_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  slug_not: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values not ending with the given string"""
+  slug_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String]
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+  subtitle: String
+
+  """All values containing the given string."""
+  subtitle_contains: String
+
+  """All values ending with the given string."""
+  subtitle_ends_with: String
+
+  """All values that are contained in given list."""
+  subtitle_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  subtitle_not: String
+
+  """All values not containing the given string."""
+  subtitle_not_contains: String
+
+  """All values not ending with the given string"""
+  subtitle_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  subtitle_not_in: [String]
+
+  """All values not starting with the given string."""
+  subtitle_not_starts_with: String
+
+  """All values starting with the given string."""
+  subtitle_starts_with: String
+  title: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values that are contained in given list."""
+  title_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  title_not: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values not ending with the given string"""
+  title_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  title_not_in: [String]
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+enum AccommodationOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  otaLink_ASC
+  otaLink_DESC
+  publishedAt_ASC
+  publishedAt_DESC
+  shortDescription_ASC
+  shortDescription_DESC
+  shortLocation_ASC
+  shortLocation_DESC
+  slug_ASC
+  slug_DESC
+  subtitle_ASC
+  subtitle_DESC
+  title_ASC
+  title_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input AccommodationUpdateInput {
+  description: RichTextAST
+  headerImage: AssetUpdateOneInlineInput
+  image: AssetUpdateManyInlineInput
+  otaLink: String
+  price: ProductPriceUpdateManyInlineInput
+  shortDescription: String
+  shortLocation: String
+  slug: String
+  subtitle: String
+  title: String
+}
+
+input AccommodationUpdateManyInlineInput {
+  """Connect multiple existing Accommodation documents"""
+  connect: [AccommodationConnectInput!]
+
+  """Create and connect multiple Accommodation documents"""
+  create: [AccommodationCreateInput!]
+
+  """Delete multiple Accommodation documents"""
+  delete: [AccommodationWhereUniqueInput!]
+
+  """Disconnect multiple Accommodation documents"""
+  disconnect: [AccommodationWhereUniqueInput!]
+
+  """
+  Override currently-connected documents with multiple existing Accommodation documents
+  """
+  set: [AccommodationWhereUniqueInput!]
+
+  """Update multiple Accommodation documents"""
+  update: [AccommodationUpdateWithNestedWhereUniqueInput!]
+
+  """Upsert multiple Accommodation documents"""
+  upsert: [AccommodationUpsertWithNestedWhereUniqueInput!]
+}
+
+input AccommodationUpdateManyInput {
+  description: RichTextAST
+  otaLink: String
+  shortDescription: String
+  shortLocation: String
+  subtitle: String
+  title: String
+}
+
+input AccommodationUpdateManyWithNestedWhereInput {
+  """Update many input"""
+  data: AccommodationUpdateManyInput!
+
+  """Document search"""
+  where: AccommodationWhereInput!
+}
+
+input AccommodationUpdateOneInlineInput {
+  """Connect existing Accommodation document"""
+  connect: AccommodationWhereUniqueInput
+
+  """Create and connect one Accommodation document"""
+  create: AccommodationCreateInput
+
+  """Delete currently connected Accommodation document"""
+  delete: Boolean
+
+  """Disconnect currently connected Accommodation document"""
+  disconnect: Boolean
+
+  """Update single Accommodation document"""
+  update: AccommodationUpdateWithNestedWhereUniqueInput
+
+  """Upsert single Accommodation document"""
+  upsert: AccommodationUpsertWithNestedWhereUniqueInput
+}
+
+input AccommodationUpdateWithNestedWhereUniqueInput {
+  """Document to update"""
+  data: AccommodationUpdateInput!
+
+  """Unique document search"""
+  where: AccommodationWhereUniqueInput!
+}
+
+input AccommodationUpsertInput {
+  """Create document if it didn't exist"""
+  create: AccommodationCreateInput!
+
+  """Update document if it exists"""
+  update: AccommodationUpdateInput!
+}
+
+input AccommodationUpsertWithNestedWhereUniqueInput {
+  """Upsert data"""
+  data: AccommodationUpsertInput!
+
+  """Unique document search"""
+  where: AccommodationWhereUniqueInput!
+}
+
+"""
+This contains a set of filters that can be used to compare values internally
+"""
+input AccommodationWhereComparatorInput {
+  """
+  This field can be used to request to check if the entry is outdated by internal comparison
+  """
+  outdated_to: Boolean
+}
+
+"""Identifies documents"""
+input AccommodationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AccommodationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccommodationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccommodationWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: AccommodationWhereStageInput
+  documentInStages_none: AccommodationWhereStageInput
+  documentInStages_some: AccommodationWhereStageInput
+  headerImage: AssetWhereInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  image_every: AssetWhereInput
+  image_none: AssetWhereInput
+  image_some: AssetWhereInput
+  otaLink: String
+
+  """All values containing the given string."""
+  otaLink_contains: String
+
+  """All values ending with the given string."""
+  otaLink_ends_with: String
+
+  """All values that are contained in given list."""
+  otaLink_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  otaLink_not: String
+
+  """All values not containing the given string."""
+  otaLink_not_contains: String
+
+  """All values not ending with the given string"""
+  otaLink_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  otaLink_not_in: [String]
+
+  """All values not starting with the given string."""
+  otaLink_not_starts_with: String
+
+  """All values starting with the given string."""
+  otaLink_starts_with: String
+  price_every: ProductPriceWhereInput
+  price_none: ProductPriceWhereInput
+  price_some: ProductPriceWhereInput
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  shortDescription: String
+
+  """All values containing the given string."""
+  shortDescription_contains: String
+
+  """All values ending with the given string."""
+  shortDescription_ends_with: String
+
+  """All values that are contained in given list."""
+  shortDescription_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortDescription_not: String
+
+  """All values not containing the given string."""
+  shortDescription_not_contains: String
+
+  """All values not ending with the given string"""
+  shortDescription_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortDescription_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortDescription_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortDescription_starts_with: String
+  shortLocation: String
+
+  """All values containing the given string."""
+  shortLocation_contains: String
+
+  """All values ending with the given string."""
+  shortLocation_ends_with: String
+
+  """All values that are contained in given list."""
+  shortLocation_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  shortLocation_not: String
+
+  """All values not containing the given string."""
+  shortLocation_not_contains: String
+
+  """All values not ending with the given string"""
+  shortLocation_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  shortLocation_not_in: [String]
+
+  """All values not starting with the given string."""
+  shortLocation_not_starts_with: String
+
+  """All values starting with the given string."""
+  shortLocation_starts_with: String
+  slug: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values that are contained in given list."""
+  slug_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  slug_not: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values not ending with the given string"""
+  slug_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String]
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+  subtitle: String
+
+  """All values containing the given string."""
+  subtitle_contains: String
+
+  """All values ending with the given string."""
+  subtitle_ends_with: String
+
+  """All values that are contained in given list."""
+  subtitle_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  subtitle_not: String
+
+  """All values not containing the given string."""
+  subtitle_not_contains: String
+
+  """All values not ending with the given string"""
+  subtitle_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  subtitle_not_in: [String]
+
+  """All values not starting with the given string."""
+  subtitle_not_starts_with: String
+
+  """All values starting with the given string."""
+  subtitle_starts_with: String
+  title: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values that are contained in given list."""
+  title_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  title_not: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values not ending with the given string"""
+  title_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  title_not_in: [String]
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+"""
+The document in stages filter allows specifying a stage entry to cross compare the same document between different stages
+"""
+input AccommodationWhereStageInput {
+  """Logical AND on all given filters."""
+  AND: [AccommodationWhereStageInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccommodationWhereStageInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccommodationWhereStageInput!]
+
+  """
+  This field contains fields which can be set as true or false to specify an internal comparison
+  """
+  compareWithParent: AccommodationWhereComparatorInput
+
+  """Specify the stage to compare with"""
+  stage: Stage
+}
+
+"""References Accommodation record uniquely"""
+input AccommodationWhereUniqueInput {
+  id: ID
+  slug: String
+}
+
 type Aggregate {
   count: Int!
 }
@@ -54,6 +1086,35 @@ type Asset implements Entity & Node {
 
   """The file handle"""
   handle: String!
+  headerImageAccommodation(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `headerImageAccommodation` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `headerImageAccommodation` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: AccommodationOrderByInput
+    skip: Int
+    where: AccommodationWhereInput
+  ): [Accommodation!]!
   headerImageBlog(
     after: String
     before: String
@@ -216,6 +1277,35 @@ type Asset implements Entity & Node {
 
   """The unique identifier"""
   id: ID!
+  imageAccommodation(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `imageAccommodation` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `imageAccommodation` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: AccommodationOrderByInput
+    skip: Int
+    where: AccommodationWhereInput
+  ): [Accommodation!]!
   imageTour(
     after: String
     before: String
@@ -486,12 +1576,14 @@ input AssetCreateInput {
   createdAt: DateTime
   fileName: String!
   handle: String!
+  headerImageAccommodation: AccommodationCreateManyInlineInput
   headerImageBlog: BlogCreateManyInlineInput
   headerImageDestination: DestinationCreateManyInlineInput
   headerImageDocument: DocumentCreateManyInlineInput
   headerImageProduct: ProductCreateManyInlineInput
   headerImageTour: TourCreateManyInlineInput
   height: Float
+  imageAccommodation: AccommodationCreateManyInlineInput
   imageTour: TourCreateManyInlineInput
 
   """
@@ -593,6 +1685,9 @@ input AssetManyWhereInput {
   documentInStages_every: AssetWhereStageInput
   documentInStages_none: AssetWhereStageInput
   documentInStages_some: AssetWhereStageInput
+  headerImageAccommodation_every: AccommodationWhereInput
+  headerImageAccommodation_none: AccommodationWhereInput
+  headerImageAccommodation_some: AccommodationWhereInput
   headerImageBlog_every: BlogWhereInput
   headerImageBlog_none: BlogWhereInput
   headerImageBlog_some: BlogWhereInput
@@ -636,6 +1731,9 @@ input AssetManyWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  imageAccommodation_every: AccommodationWhereInput
+  imageAccommodation_none: AccommodationWhereInput
+  imageAccommodation_some: AccommodationWhereInput
   imageTour_every: TourWhereInput
   imageTour_none: TourWhereInput
   imageTour_some: TourWhereInput
@@ -734,12 +1832,14 @@ input AssetTransformationInput {
 input AssetUpdateInput {
   fileName: String
   handle: String
+  headerImageAccommodation: AccommodationUpdateManyInlineInput
   headerImageBlog: BlogUpdateManyInlineInput
   headerImageDestination: DestinationUpdateManyInlineInput
   headerImageDocument: DocumentUpdateManyInlineInput
   headerImageProduct: ProductUpdateManyInlineInput
   headerImageTour: TourUpdateManyInlineInput
   height: Float
+  imageAccommodation: AccommodationUpdateManyInlineInput
   imageTour: TourUpdateManyInlineInput
 
   """Manage document localizations"""
@@ -995,6 +2095,9 @@ input AssetWhereInput {
 
   """All values starting with the given string."""
   handle_starts_with: String
+  headerImageAccommodation_every: AccommodationWhereInput
+  headerImageAccommodation_none: AccommodationWhereInput
+  headerImageAccommodation_some: AccommodationWhereInput
   headerImageBlog_every: BlogWhereInput
   headerImageBlog_none: BlogWhereInput
   headerImageBlog_some: BlogWhereInput
@@ -1060,6 +2163,9 @@ input AssetWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  imageAccommodation_every: AccommodationWhereInput
+  imageAccommodation_none: AccommodationWhereInput
+  imageAccommodation_some: AccommodationWhereInput
   imageTour_every: TourWhereInput
   imageTour_none: TourWhereInput
   imageTour_some: TourWhereInput
@@ -2403,6 +3509,7 @@ type Destination implements Entity & Node {
     """
     locales: [Locale!]
   ): User
+  youtubeLink: [String!]!
 }
 
 input DestinationConnectInput {
@@ -2443,6 +3550,7 @@ input DestinationCreateInput {
   title: String
   tour: TourCreateOneInlineInput
   updatedAt: DateTime
+  youtubeLink: [String!]
 }
 
 input DestinationCreateManyInlineInput {
@@ -2743,6 +3851,29 @@ input DestinationManyWhereInput {
   """All values that are not contained in given list."""
   updatedAt_not_in: [DateTime]
   updatedBy: UserWhereInput
+
+  """
+  Matches if the field array contains *all* items provided to the filter and order does match
+  """
+  youtubeLink: [String!]
+
+  """Matches if the field array contains *all* items provided to the filter"""
+  youtubeLink_contains_all: [String!]
+
+  """
+  Matches if the field array does not contain any of the items provided to the filter
+  """
+  youtubeLink_contains_none: [String!]
+
+  """
+  Matches if the field array contains at least one item provided to the filter
+  """
+  youtubeLink_contains_some: [String!]
+
+  """
+  Matches if the field array does not contains *all* items provided to the filter or order does not match
+  """
+  youtubeLink_not: [String!]
 }
 
 enum DestinationOrderByInput {
@@ -2768,6 +3899,8 @@ enum DestinationOrderByInput {
   title_DESC
   updatedAt_ASC
   updatedAt_DESC
+  youtubeLink_ASC
+  youtubeLink_DESC
 }
 
 input DestinationUpdateInput {
@@ -2785,6 +3918,7 @@ input DestinationUpdateInput {
   subtitle: String
   title: String
   tour: TourUpdateOneInlineInput
+  youtubeLink: [String!]
 }
 
 input DestinationUpdateManyInlineInput {
@@ -2821,6 +3955,7 @@ input DestinationUpdateManyInput {
   shortLocation: String
   subtitle: String
   title: String
+  youtubeLink: [String!]
 }
 
 input DestinationUpdateManyWithNestedWhereInput {
@@ -3158,6 +4293,29 @@ input DestinationWhereInput {
   """All values that are not contained in given list."""
   updatedAt_not_in: [DateTime]
   updatedBy: UserWhereInput
+
+  """
+  Matches if the field array contains *all* items provided to the filter and order does match
+  """
+  youtubeLink: [String!]
+
+  """Matches if the field array contains *all* items provided to the filter"""
+  youtubeLink_contains_all: [String!]
+
+  """
+  Matches if the field array does not contain any of the items provided to the filter
+  """
+  youtubeLink_contains_none: [String!]
+
+  """
+  Matches if the field array contains at least one item provided to the filter
+  """
+  youtubeLink_contains_some: [String!]
+
+  """
+  Matches if the field array does not contains *all* items provided to the filter or order does not match
+  """
+  youtubeLink_not: [String!]
 }
 
 """
@@ -4662,6 +5820,8 @@ interface Entity {
 This enumeration holds all typenames that implement the Entity interface. Components and models implement the Entity interface.
 """
 enum EntityTypeName {
+  Accommodation
+
   """Asset system model"""
   Asset
   Blog
@@ -4767,6 +5927,9 @@ The Long scalar type represents non-fractional signed whole numeric values. Long
 scalar Long
 
 type Mutation {
+  """Create one accommodation"""
+  createAccommodation(data: AccommodationCreateInput!): Accommodation
+
   """Create one asset"""
   createAsset(data: AssetCreateInput!): Asset @deprecated(reason: "Asset mutations will be overhauled soon")
 
@@ -4793,6 +5956,14 @@ type Mutation {
 
   """Create one tour"""
   createTour(data: TourCreateInput!): Tour
+
+  """
+  Delete one accommodation from _all_ existing stages. Returns deleted document.
+  """
+  deleteAccommodation(
+    """Document to delete"""
+    where: AccommodationWhereUniqueInput!
+  ): Accommodation
 
   """Delete one asset from _all_ existing stages. Returns deleted document."""
   deleteAsset(
@@ -4827,6 +5998,24 @@ type Mutation {
     """Document to delete"""
     where: EmailWhereUniqueInput!
   ): Email
+
+  """Delete many Accommodation documents"""
+  deleteManyAccommodations(
+    """Documents to delete"""
+    where: AccommodationManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyAccommodationsConnection)")
+
+  """Delete many Accommodation documents, return deleted documents"""
+  deleteManyAccommodationsConnection(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to delete"""
+    where: AccommodationManyWhereInput
+  ): AccommodationConnection!
 
   """Delete many Asset documents"""
   deleteManyAssets(
@@ -5006,6 +6195,15 @@ type Mutation {
     where: TourWhereUniqueInput!
   ): Tour
 
+  """Publish one accommodation"""
+  publishAccommodation(
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: AccommodationWhereUniqueInput!
+  ): Accommodation
+
   """Publish one asset"""
   publishAsset(
     """Optional localizations to publish"""
@@ -5059,6 +6257,33 @@ type Mutation {
     """Document to publish"""
     where: EmailWhereUniqueInput!
   ): Email
+
+  """Publish many Accommodation documents"""
+  publishManyAccommodations(
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: AccommodationManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyAccommodationsConnection)")
+
+  """Publish many Accommodation documents"""
+  publishManyAccommodationsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+    last: Int
+    skip: Int
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: AccommodationManyWhereInput
+  ): AccommodationConnection!
 
   """Publish many Asset documents"""
   publishManyAssets(
@@ -5321,6 +6546,23 @@ type Mutation {
     where: TourWhereUniqueInput!
   ): Tour
 
+  """Schedule to publish one accommodation"""
+  schedulePublishAccommodation(
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: AccommodationWhereUniqueInput!
+  ): Accommodation
+
   """Schedule to publish one asset"""
   schedulePublishAsset(
     """Optional localizations to publish"""
@@ -5465,6 +6707,25 @@ type Mutation {
     """Document to publish"""
     where: TourWhereUniqueInput!
   ): Tour
+
+  """
+  Unpublish one accommodation from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  scheduleUnpublishAccommodation(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Document to unpublish"""
+    where: AccommodationWhereUniqueInput!
+  ): Accommodation
 
   """
   Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
@@ -5629,6 +6890,17 @@ type Mutation {
   ): Tour
 
   """
+  Unpublish one accommodation from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishAccommodation(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Document to unpublish"""
+    where: AccommodationWhereUniqueInput!
+  ): Accommodation
+
+  """
   Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
   """
   unpublishAsset(
@@ -5692,6 +6964,35 @@ type Mutation {
     """Document to unpublish"""
     where: EmailWhereUniqueInput!
   ): Email
+
+  """Unpublish many Accommodation documents"""
+  unpublishManyAccommodations(
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage"""
+    where: AccommodationManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyAccommodationsConnection)")
+
+  """
+  Find many Accommodation documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManyAccommodationsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+    last: Int
+    skip: Int
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Identifies documents in draft stage"""
+    where: AccommodationManyWhereInput
+  ): AccommodationConnection!
 
   """Unpublish many Asset documents"""
   unpublishManyAssets(
@@ -5970,6 +7271,9 @@ type Mutation {
     where: TourWhereUniqueInput!
   ): Tour
 
+  """Update one accommodation"""
+  updateAccommodation(data: AccommodationUpdateInput!, where: AccommodationWhereUniqueInput!): Accommodation
+
   """Update one asset"""
   updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset
 
@@ -5984,6 +7288,30 @@ type Mutation {
 
   """Update one email"""
   updateEmail(data: EmailUpdateInput!, where: EmailWhereUniqueInput!): Email
+
+  """Update many accommodations"""
+  updateManyAccommodations(
+    """Updates to document content"""
+    data: AccommodationUpdateManyInput!
+
+    """Documents to apply update on"""
+    where: AccommodationManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyAccommodationsConnection)")
+
+  """Update many Accommodation documents"""
+  updateManyAccommodationsConnection(
+    after: ID
+    before: ID
+
+    """Updates to document content"""
+    data: AccommodationUpdateManyInput!
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to apply update on"""
+    where: AccommodationManyWhereInput
+  ): AccommodationConnection!
 
   """Update many assets"""
   updateManyAssets(
@@ -6188,6 +7516,9 @@ type Mutation {
 
   """Update one tour"""
   updateTour(data: TourUpdateInput!, where: TourWhereUniqueInput!): Tour
+
+  """Upsert one accommodation"""
+  upsertAccommodation(upsert: AccommodationUpsertInput!, where: AccommodationWhereUniqueInput!): Accommodation
 
   """Upsert one asset"""
   upsertAsset(upsert: AssetUpsertInput!, where: AssetWhereUniqueInput!): Asset
@@ -6508,6 +7839,7 @@ type Product implements Entity & Node {
     """
     locales: [Locale!]
   ): User
+  youtubeLink: [String!]!
 }
 
 input ProductConnectInput {
@@ -6548,6 +7880,7 @@ input ProductCreateInput {
   title: String
   tour: TourCreateOneInlineInput
   updatedAt: DateTime
+  youtubeLink: [String!]
 }
 
 input ProductCreateManyInlineInput {
@@ -6848,6 +8181,29 @@ input ProductManyWhereInput {
   """All values that are not contained in given list."""
   updatedAt_not_in: [DateTime]
   updatedBy: UserWhereInput
+
+  """
+  Matches if the field array contains *all* items provided to the filter and order does match
+  """
+  youtubeLink: [String!]
+
+  """Matches if the field array contains *all* items provided to the filter"""
+  youtubeLink_contains_all: [String!]
+
+  """
+  Matches if the field array does not contain any of the items provided to the filter
+  """
+  youtubeLink_contains_none: [String!]
+
+  """
+  Matches if the field array contains at least one item provided to the filter
+  """
+  youtubeLink_contains_some: [String!]
+
+  """
+  Matches if the field array does not contains *all* items provided to the filter or order does not match
+  """
+  youtubeLink_not: [String!]
 }
 
 enum ProductOrderByInput {
@@ -6873,6 +8229,8 @@ enum ProductOrderByInput {
   title_DESC
   updatedAt_ASC
   updatedAt_DESC
+  youtubeLink_ASC
+  youtubeLink_DESC
 }
 
 type ProductPrice implements Entity {
@@ -7085,15 +8443,17 @@ enum ProductPriceOrderByInput {
   quantity_DESC
 }
 
-union ProductPriceParent = Destination | Product | Tour
+union ProductPriceParent = Accommodation | Destination | Product | Tour
 
 input ProductPriceParentConnectInput {
+  Accommodation: AccommodationConnectInput
   Destination: DestinationConnectInput
   Product: ProductConnectInput
   Tour: TourConnectInput
 }
 
 input ProductPriceParentCreateInput {
+  Accommodation: AccommodationCreateInput
   Destination: DestinationCreateInput
   Product: ProductCreateInput
   Tour: TourCreateInput
@@ -7116,6 +8476,7 @@ input ProductPriceParentCreateOneInlineInput {
 }
 
 input ProductPriceParentUpdateInput {
+  Accommodation: AccommodationUpdateInput
   Destination: DestinationUpdateInput
   Product: ProductUpdateInput
   Tour: TourUpdateInput
@@ -7147,6 +8508,7 @@ input ProductPriceParentUpdateManyInlineInput {
 }
 
 input ProductPriceParentUpdateManyWithNestedWhereInput {
+  Accommodation: AccommodationUpdateManyWithNestedWhereInput
   Destination: DestinationUpdateManyWithNestedWhereInput
   Product: ProductUpdateManyWithNestedWhereInput
   Tour: TourUpdateManyWithNestedWhereInput
@@ -7173,24 +8535,28 @@ input ProductPriceParentUpdateOneInlineInput {
 }
 
 input ProductPriceParentUpdateWithNestedWhereUniqueInput {
+  Accommodation: AccommodationUpdateWithNestedWhereUniqueInput
   Destination: DestinationUpdateWithNestedWhereUniqueInput
   Product: ProductUpdateWithNestedWhereUniqueInput
   Tour: TourUpdateWithNestedWhereUniqueInput
 }
 
 input ProductPriceParentUpsertWithNestedWhereUniqueInput {
+  Accommodation: AccommodationUpsertWithNestedWhereUniqueInput
   Destination: DestinationUpsertWithNestedWhereUniqueInput
   Product: ProductUpsertWithNestedWhereUniqueInput
   Tour: TourUpsertWithNestedWhereUniqueInput
 }
 
 input ProductPriceParentWhereInput {
+  Accommodation: AccommodationWhereInput
   Destination: DestinationWhereInput
   Product: ProductWhereInput
   Tour: TourWhereInput
 }
 
 input ProductPriceParentWhereUniqueInput {
+  Accommodation: AccommodationWhereUniqueInput
   Destination: DestinationWhereUniqueInput
   Product: ProductWhereUniqueInput
   Tour: TourWhereUniqueInput
@@ -7441,6 +8807,7 @@ input ProductUpdateInput {
   subtitle: String
   title: String
   tour: TourUpdateOneInlineInput
+  youtubeLink: [String!]
 }
 
 input ProductUpdateManyInlineInput {
@@ -7477,6 +8844,7 @@ input ProductUpdateManyInput {
   shortLocation: String
   subtitle: String
   title: String
+  youtubeLink: [String!]
 }
 
 input ProductUpdateManyWithNestedWhereInput {
@@ -7814,6 +9182,29 @@ input ProductWhereInput {
   """All values that are not contained in given list."""
   updatedAt_not_in: [DateTime]
   updatedBy: UserWhereInput
+
+  """
+  Matches if the field array contains *all* items provided to the filter and order does match
+  """
+  youtubeLink: [String!]
+
+  """Matches if the field array contains *all* items provided to the filter"""
+  youtubeLink_contains_all: [String!]
+
+  """
+  Matches if the field array does not contain any of the items provided to the filter
+  """
+  youtubeLink_contains_none: [String!]
+
+  """
+  Matches if the field array contains at least one item provided to the filter
+  """
+  youtubeLink_contains_some: [String!]
+
+  """
+  Matches if the field array does not contains *all* items provided to the filter or order does not match
+  """
+  youtubeLink_not: [String!]
 }
 
 """
@@ -7853,6 +9244,68 @@ input PublishLocaleInput {
 }
 
 type Query {
+  """Retrieve a single accommodation"""
+  accommodation(
+    """
+    Defines which locales should be returned.
+    
+    Note that `Accommodation` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    stage: Stage! = PUBLISHED
+    where: AccommodationWhereUniqueInput!
+  ): Accommodation
+
+  """Retrieve document version"""
+  accommodationVersion(where: VersionWhereInput!): DocumentVersion
+
+  """Retrieve multiple accommodations"""
+  accommodations(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Accommodation` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: AccommodationOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: AccommodationWhereInput
+  ): [Accommodation!]!
+
+  """Retrieve multiple accommodations using the Relay connection interface"""
+  accommodationsConnection(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Accommodation` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: AccommodationOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: AccommodationWhereInput
+  ): AccommodationConnection!
+
   """Retrieve a single asset"""
   asset(
     """
@@ -8767,7 +10220,7 @@ type ScheduledOperation implements Entity & Node {
   ): User
 }
 
-union ScheduledOperationAffectedDocument = Asset | Blog | Destination | Document | Email | Product | Shop | Tour
+union ScheduledOperationAffectedDocument = Accommodation | Asset | Blog | Destination | Document | Email | Product | Shop | Tour
 
 input ScheduledOperationConnectInput {
   """

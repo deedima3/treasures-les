@@ -1,0 +1,21 @@
+query Accommodations {
+  accommodations {
+    title
+    subtitle
+    slug
+    shortDescription
+    otaLink
+    price {
+			isPromotion
+      isAvailable
+			price
+			quantity
+			amountName
+		}
+    headerImage {
+      width
+      url
+      height
+    }
+  }
+}

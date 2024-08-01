@@ -1,6 +1,26 @@
 import type { Stage } from "$hoody";
 import type { ValueOf } from "houdini";
 
+type Accommodation = {
+    readonly slug: string | null;
+    readonly title: string | null;
+    readonly subtitle: string | null;
+    readonly shortDescription: string | null;
+    readonly otaLink: string | null;
+    readonly headerImage: {
+        readonly url: string;
+        readonly height: number | null;
+        readonly width: number | null;
+    } | null;
+    readonly price: ({
+        readonly isPromotion: boolean | null;
+        readonly isAvailable: boolean | null;
+        readonly amountName: string | null;
+        readonly quantity: number | null;
+        readonly price: number | null;
+    })[];
+}
+
 type Blog = {
     readonly title: string | null;
     readonly headerImage: {
@@ -109,6 +129,7 @@ type ProductLocation = SimpledProduct & {
 }
 
 export type {
+    Accommodation,
     Blog,
     Image,
     Price,
