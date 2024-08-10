@@ -51,10 +51,10 @@
 			/>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 					{#each $TourDetail.data.tour.destination as destination}
-						<MapPopupCard service={destination} />
+						<MapPopupCard service={destination} endpoint="destination" />
 					{/each}
 					{#each $TourDetail.data.tour.product as product}
-						<MapPopupCard service={product} />
+						<MapPopupCard service={product} endpoint="product" />
 					{/each}
 			</div>
 		</div>

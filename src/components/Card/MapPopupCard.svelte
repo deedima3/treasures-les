@@ -2,6 +2,7 @@
 	import type { SimpledDestination, SimpledProduct } from '$interfaces/data.interfaces';
 
 	export let service: SimpledDestination | SimpledProduct;
+	export let endpoint: string = '';
 
 	const truncateText = (text: string | null) => {
 		if (text) {
@@ -15,9 +16,11 @@
 		<img src={service.headerImage?.url} alt="Service" class="object-cover w-full h-full" />
 	</div>
 	<div class="flex flex-col">
-		<p class="text-xl">{service.title}</p>
-		<p class="text-sm">
-			{truncateText(service.shortDescription)}
-		</p>
+		<a href="/{endpoint}/{service.slug}">
+			<p class="text-xl">{service.title}</p>
+			<p class="text-sm">
+				{truncateText(service.shortDescription)}
+			</p>
+		</a>
 	</div>
 </div>
