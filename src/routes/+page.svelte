@@ -11,6 +11,7 @@
 
 	import InstagramEmbed from '$components/Embed/InstagramEmbed.svelte';
 	import FacebookEmbed from '$components/Embed/FacebookEmbed.svelte';
+	import YouTubeEmbed from '$components/Embed/YouTubeEmbed.svelte';
 
 	$: ({ Featured } = data);
 </script>
@@ -77,5 +78,6 @@
 	<GridContainer>
 		<InstagramEmbed />
 		<FacebookEmbed />
+		<YouTubeEmbed />
 	</GridContainer>
 </div>
