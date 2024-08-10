@@ -1306,6 +1306,35 @@ type Asset implements Entity & Node {
     skip: Int
     where: AccommodationWhereInput
   ): [Accommodation!]!
+  imageDocument(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `imageDocument` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `imageDocument` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: DocumentOrderByInput
+    skip: Int
+    where: DocumentWhereInput
+  ): [Document!]!
   imageTour(
     after: String
     before: String
@@ -1584,6 +1613,7 @@ input AssetCreateInput {
   headerImageTour: TourCreateManyInlineInput
   height: Float
   imageAccommodation: AccommodationCreateManyInlineInput
+  imageDocument: DocumentCreateManyInlineInput
   imageTour: TourCreateManyInlineInput
 
   """
@@ -1734,6 +1764,9 @@ input AssetManyWhereInput {
   imageAccommodation_every: AccommodationWhereInput
   imageAccommodation_none: AccommodationWhereInput
   imageAccommodation_some: AccommodationWhereInput
+  imageDocument_every: DocumentWhereInput
+  imageDocument_none: DocumentWhereInput
+  imageDocument_some: DocumentWhereInput
   imageTour_every: TourWhereInput
   imageTour_none: TourWhereInput
   imageTour_some: TourWhereInput
@@ -1840,6 +1873,7 @@ input AssetUpdateInput {
   headerImageTour: TourUpdateManyInlineInput
   height: Float
   imageAccommodation: AccommodationUpdateManyInlineInput
+  imageDocument: DocumentUpdateManyInlineInput
   imageTour: TourUpdateManyInlineInput
 
   """Manage document localizations"""
@@ -2166,6 +2200,9 @@ input AssetWhereInput {
   imageAccommodation_every: AccommodationWhereInput
   imageAccommodation_none: AccommodationWhereInput
   imageAccommodation_some: AccommodationWhereInput
+  imageDocument_every: DocumentWhereInput
+  imageDocument_none: DocumentWhereInput
+  imageDocument_some: DocumentWhereInput
   imageTour_every: TourWhereInput
   imageTour_none: TourWhereInput
   imageTour_some: TourWhereInput
@@ -4429,6 +4466,35 @@ type Document implements Entity & Node {
 
   """The unique identifier"""
   id: ID!
+  image(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+    
+    Note that `image` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `image` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: AssetOrderByInput
+    skip: Int
+    where: AssetWhereInput
+  ): [Asset!]!
 
   """The time the document was published. Null on documents in draft stage."""
   publishedAt: DateTime
@@ -4542,6 +4608,7 @@ input DocumentCreateInput {
   content: RichTextAST
   createdAt: DateTime
   headerImage: AssetCreateOneInlineInput
+  image: AssetCreateManyInlineInput
   slug: String
   subtitle: String
   title: String
@@ -4660,6 +4727,9 @@ input DocumentManyWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  image_every: AssetWhereInput
+  image_none: AssetWhereInput
+  image_some: AssetWhereInput
   publishedAt: DateTime
 
   """All values greater than the given value."""
@@ -4851,6 +4921,7 @@ input DocumentTransformationInput {
 input DocumentUpdateInput {
   content: RichTextAST
   headerImage: AssetUpdateOneInlineInput
+  image: AssetUpdateManyInlineInput
   slug: String
   subtitle: String
   title: String
@@ -5025,6 +5096,9 @@ input DocumentWhereInput {
 
   """All values starting with the given string."""
   id_starts_with: ID
+  image_every: AssetWhereInput
+  image_none: AssetWhereInput
+  image_some: AssetWhereInput
   publishedAt: DateTime
 
   """All values greater than the given value."""
