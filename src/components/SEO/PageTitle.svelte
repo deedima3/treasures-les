@@ -4,9 +4,6 @@
 	export let image = 'https://visitles.id/les_village.jpg';
 
 	let url = 'https://visitles.id';
-	if (typeof window !== 'undefined') {
-		url = window.location.href;
-	}
 </script>
 
 <svelte:head>
