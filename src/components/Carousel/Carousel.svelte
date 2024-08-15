@@ -18,7 +18,7 @@
 				selectedNumber++;
 			}
 			setTimeOutChange();
-		}, 5000);
+		}, 2000);
 	};
 
 	onMount(() => {
@@ -39,7 +39,7 @@
 			in:fly={{
 				delay: 250,
 				duration: 300,
-				x: 20,
+				// x: 20,
 				opacity: 0.5,
 				easing: quintOut
 			}}

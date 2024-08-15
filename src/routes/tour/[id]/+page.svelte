@@ -2,7 +2,6 @@
 	import MapPopupCard from '$components/Card/MapPopupCard.svelte';
 	import MarkdownDisplayer from '$components/Markdown/MarkdownDisplayer.svelte';
 	import PageTitle from '$components/SEO/PageTitle.svelte';
-	import Title from '$components/Title/Title.svelte';
 	import Carousel from '$components/Carousel/Carousel.svelte';
 	import TourPriceCard from '$components/Card/TourPriceCard.svelte';
 	import ShopProfileCard from '$components/Card/ShopProfileCard.svelte';
@@ -16,8 +15,10 @@
 	<PageTitle title={$TourDetail.data.tour.title} />
 	<main class="flex flex-col w-full mx-auto max-w-screen-2xl">
 		<div class="text-center">
-			<h1 class="text-5xl font-bold">{$TourDetail.data.tour.title}</h1>
-			<h4 class="mt-2 text-base">{$TourDetail.data.tour.subtitle}</h4>
+			<h1 class="text-4xl font-bold md:pl-5 text-center md:text-left px-5">{$TourDetail.data.tour.title}</h1>
+			<h2 class="text-base md:pl-5 px-5 text-center md:text-left my-3">
+				{$TourDetail.data.tour.subtitle}
+			</h2>
 		</div>
 		<div class="flex flex-col w-full gap-5 md:flex-row">
 			<div class="w-full md:w-2/3">
@@ -39,16 +40,12 @@
 			
 		</div>
 		{#if $TourDetail.data.tour.description}
-			<div class="w-full mt-10 md:w-2/3 flex justify-start">
+			<div class="w-full mt-10 md:w-2/3 flex justify-start text-justify">
 				<MarkdownDisplayer content={$TourDetail.data.tour.description.markdown} />
 			</div>
 		{/if}
 		<div class="w-full mt-5 md:pl-5">
-			<Title
-				title="Included Services"
-				subtitle="Included Services in the tour"
-				isCentered={false}
-			/>
+			<h1 class="font-bold px-5 md:px-0 text-2xl">Included Services</h1>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 					{#each $TourDetail.data.tour.destination as destination}
 						<MapPopupCard service={destination} endpoint="destination" />

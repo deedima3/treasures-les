@@ -37,7 +37,7 @@
 								selectedPrice = price;
 							}}
 						>
-							{price.quantity}{price.amountName}
+							{price.quantity} {price.amountName}
 						</ColoredButton>
 					{:else}
 						<OutlinedButton
@@ -45,7 +45,7 @@
 								selectedPrice = price;
 							}}
 						>
-							{price.quantity}{price.amountName}
+							{price.quantity} {price.amountName}
 						</OutlinedButton>
 					{/if}
 				{/each}

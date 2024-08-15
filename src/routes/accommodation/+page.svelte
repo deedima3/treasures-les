@@ -13,7 +13,7 @@
 <Title 
 	title="Accommodations" 
 	subtitle="Stay with us!" 
-	balineseScript="&#x1B15;&#x1B42;&#x1B26;&#x1B04;&#x1B2F;&#x1B36;&#x1B32;&#x1B22;&#x1B5F;"
+	balineseScript="&#x1B15;&#x1B42;&#x1B26;&#x1B04;&#x1B2B;&#x1B32;&#x1B26;&#x1B44;&#x1B24;&#x1B42;&#x1B13;&#x1B26;&#x1B44;&#x1B5F;"
 />
 <PageTitle title="Accommodations" />
 {#if $Accommodations.data}

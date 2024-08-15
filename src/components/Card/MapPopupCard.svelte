@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { SimpledDestination, SimpledProduct } from '$interfaces/data.interfaces';
+	import type { SimpledDestination, SimpledProduct, Tour } from '$interfaces/data.interfaces';
 
-	export let service: SimpledDestination | SimpledProduct;
+	export let service: SimpledDestination | SimpledProduct | Tour;
 	export let endpoint: string = '';
 
 	const truncateText = (text: string | null) => {
@@ -11,7 +11,7 @@
 	};
 </script>
 
-<div class="flex max-w-sm gap-5 px-5 py-3 bg-white shadow-lg">
+<div class="flex max-w-sm gap-5 px-5 py-3 bg-white shadow-lg rounded-md">
 	<div class="flex-shrink-0 w-24 h-24 rounded-md overflow-clip">
 		<img src={service.headerImage?.url} alt="Service" class="object-cover w-full h-full" />
 	</div>
