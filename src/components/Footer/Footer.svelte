@@ -98,6 +98,6 @@
 	</div>
 	<span
 		class="block text-sm text-center text-gray-500 sm:text-center dark:text-gray-400 pb-8 bg-brand-eigengrau"
-		>&copy; KKN Desa Les 2024</span
+		>&copy; 2023-2024 KKN Desa Les</span
 	>
 </div>

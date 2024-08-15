@@ -5,8 +5,10 @@
 	import Leaflet from '$components/Map/Leaflet.svelte';
 	import MarkdownDisplayer from '$components/Markdown/MarkdownDisplayer.svelte';
 	import PageTitle from '$components/SEO/PageTitle.svelte';
+	import MapPopupCard from '$components/Card/MapPopupCard.svelte';
 	import { getYTVideoId } from '$utils/utils';
 	import type { PageData } from '$houdini/types/src/routes/destination/[id]/$houdini';
+
 	export let data: PageData;
 
 	$: ({ DestinationDetail } = data);
@@ -17,27 +19,51 @@
 		<PageTitle title={$DestinationDetail.data.destination.title} />
 	{/if}
 	<div class="flex flex-col w-full mx-auto max-w-screen-2xl">
-		<h1 class="text-4xl font-bold md:pl-5">{$DestinationDetail.data.destination.title}</h1>
-		<h2 class="text-base md:pl-5">
+		<h1 class="text-4xl font-bold md:pl-5 text-center md:text-left px-5">
+			{$DestinationDetail.data.destination.title}
+		</h1>
+		<h2 class="text-base md:pl-5 px-5 text-center md:text-left my-3">
 			{$DestinationDetail.data.destination.subtitle}
 		</h2>
 		<div class="flex flex-col w-full gap-5 md:flex-row">
 			<div class="w-full md:w-2/3">
 				<Carousel imageArray={$DestinationDetail.data.destination.image} />
 			</div>
-			{#if $DestinationDetail.data.destination.title && $DestinationDetail.data.destination.shortLocation && $DestinationDetail.data.destination.shop && $DestinationDetail.data.destination.shop.waNumber}
+			{#if $DestinationDetail.data.destination.price && $DestinationDetail.data.destination.price.length > 0 && $DestinationDetail.data.destination.shop}
 				<div class="w-full md:w-1/4">
 					<DestinationPriceCard
-						title={$DestinationDetail.data.destination.title}
-						shortLocation={$DestinationDetail.data.destination.shortLocation}
-						prices={$DestinationDetail.data.destination.price}
-						phoneNumber={$DestinationDetail.data.destination.shop.waNumber}
+						title={$DestinationDetail.data.destination.title ?? ''}
+						shortLocation={$DestinationDetail.data.destination.shortLocation ?? ''}
+						prices={$DestinationDetail.data.destination.price ?? []}
+						phoneNumber={$DestinationDetail.data.destination.shop?.waNumber ?? ''}
 					/>
 					<ShopProfileCard shop={$DestinationDetail.data.destination.shop} />
+					{#each $DestinationDetail.data.tours as tour}
+						<div class="my-2">
+							{#each tour.destination as dest}
+								{#if dest.slug == $DestinationDetail.data.destination.slug}
+									<MapPopupCard service={tour} endpoint="tour" />
+								{/if}
+							{/each}
+						</div>
+					{/each}
+				</div>
+			{:else if $DestinationDetail.data.destination.shop}
+				<div class="w-full md:w-1/4">
+					<ShopProfileCard shop={$DestinationDetail.data.destination.shop} />
+					{#each $DestinationDetail.data.tours as tour}
+						<div class="my-2">
+							{#each tour.destination as dest}
+								{#if dest.slug == $DestinationDetail.data.destination.slug}
+									<MapPopupCard service={tour} endpoint="tour" />
+								{/if}
+							{/each}
+						</div>
+					{/each}
 				</div>
 			{/if}
 		</div>
-		<div class="w-full mt-10 md:w-2/3">
+		<div class="w-full mt-10 md:w-2/3 text-justify">
 			{#if $DestinationDetail.data.destination.description?.markdown}
 				<MarkdownDisplayer content={$DestinationDetail.data.destination.description?.markdown} />
 			{/if}

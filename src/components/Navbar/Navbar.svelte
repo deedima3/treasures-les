@@ -32,7 +32,7 @@
 		<OutlinedButton
 			onClick={() => {
 				goto(
-					generateWhatsappLink('+6285155334059', 'Hi, i would like to know more about the website!')
+					generateWhatsappLink('+6281238392010', 'Hi, i would like to know more about the website!')
 				);
 			}}>Contact Us</OutlinedButton
 		>

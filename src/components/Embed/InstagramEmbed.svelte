@@ -83,7 +83,7 @@
             </a>
             <p
                 style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
-                <a href="girisegare"
+                <a href="https://www.instagram.com/girisegare"
                     style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
                     target="_blank">Shared post</a> on <time
                     style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;">Time</time>

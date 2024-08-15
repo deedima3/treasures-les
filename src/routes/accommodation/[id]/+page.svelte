@@ -1,5 +1,4 @@
 <script lang="ts">
-	import AccommodationCard from '$components/Card/AccommodationCard.svelte';
     import AccommodationPriceCard from '$components/Card/AccommodationPriceCard.svelte';
     import Carousel from '$components/Carousel/Carousel.svelte';
 	import MarkdownDisplayer from '$components/Markdown/MarkdownDisplayer.svelte';
@@ -15,8 +14,8 @@
 		<PageTitle title={$AccommodationDetail.data.accommodation.title} />
 	{/if}
 	<div class="flex flex-col w-full mx-auto max-w-screen-2xl">
-		<h1 class="text-4xl font-bold md:pl-5">{$AccommodationDetail.data.accommodation.title}</h1>
-		<h2 class="text-base md:pl-5">
+		<h1 class="text-4xl font-bold md:pl-5 text-center">{$AccommodationDetail.data.accommodation.title}</h1>
+		<h2 class="text-base md:pl-5 text-center my-3">
 			{$AccommodationDetail.data.accommodation.subtitle}
 		</h2>
 		<div class="flex flex-col w-full gap-5 md:flex-row">

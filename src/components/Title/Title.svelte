@@ -11,12 +11,12 @@
 			<span class="font-natya font-light">{balineseScript}</span>
 		</h1>
 	{/if}
-	<h1 class="text-5xl font-bold md:text-6xl text-brand-black">
+	<h1 class="text-4xl font-bold md:text-5xl text-brand-black">
 		{title}
 	</h1>
 	{#if subtitle}
 		<h3
-			class={`mt-5 text-base md:text-lg text-brand-black font-mont ${
+			class={`mt-5 px-5 text-base md:text-lg text-brand-black font-mont ${
 				isCentered ? 'text-center' : 'text-left'
 			}`}
 		>

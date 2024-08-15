@@ -3500,6 +3500,10 @@ type Destination implements Entity & Node {
   subtitle: String
   title: String
   tour(
+    after: String
+    before: String
+    first: Int
+
     """
     Sets the locale of the resolved parent document as the only locale in the query's subtree.
     
@@ -3509,6 +3513,7 @@ type Destination implements Entity & Node {
     This argument will affect any existing locale filtering defined in the query's tree for the subtree.
     """
     forceParentLocale: Boolean
+    last: Int
 
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
@@ -3519,7 +3524,10 @@ type Destination implements Entity & Node {
     This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
     """
     locales: [Locale!]
-  ): Tour
+    orderBy: TourOrderByInput
+    skip: Int
+    where: TourWhereInput
+  ): [Tour!]!
 
   """The time the document was updated"""
   updatedAt: DateTime!
@@ -3585,7 +3593,7 @@ input DestinationCreateInput {
   slug: String
   subtitle: String
   title: String
-  tour: TourCreateOneInlineInput
+  tour: TourCreateManyInlineInput
   updatedAt: DateTime
   youtubeLink: [String!]
 }
@@ -3864,7 +3872,9 @@ input DestinationManyWhereInput {
 
   """All values starting with the given string."""
   title_starts_with: String
-  tour: TourWhereInput
+  tour_every: TourWhereInput
+  tour_none: TourWhereInput
+  tour_some: TourWhereInput
   updatedAt: DateTime
 
   """All values greater than the given value."""
@@ -3954,7 +3964,7 @@ input DestinationUpdateInput {
   slug: String
   subtitle: String
   title: String
-  tour: TourUpdateOneInlineInput
+  tour: TourUpdateManyInlineInput
   youtubeLink: [String!]
 }
 
@@ -4306,7 +4316,9 @@ input DestinationWhereInput {
 
   """All values starting with the given string."""
   title_starts_with: String
-  tour: TourWhereInput
+  tour_every: TourWhereInput
+  tour_none: TourWhereInput
+  tour_some: TourWhereInput
   updatedAt: DateTime
 
   """All values greater than the given value."""
@@ -7867,6 +7879,10 @@ type Product implements Entity & Node {
   subtitle: String
   title: String
   tour(
+    after: String
+    before: String
+    first: Int
+
     """
     Sets the locale of the resolved parent document as the only locale in the query's subtree.
     
@@ -7876,6 +7892,7 @@ type Product implements Entity & Node {
     This argument will affect any existing locale filtering defined in the query's tree for the subtree.
     """
     forceParentLocale: Boolean
+    last: Int
 
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
@@ -7886,7 +7903,10 @@ type Product implements Entity & Node {
     This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
     """
     locales: [Locale!]
-  ): Tour
+    orderBy: TourOrderByInput
+    skip: Int
+    where: TourWhereInput
+  ): [Tour!]!
 
   """The time the document was updated"""
   updatedAt: DateTime!
@@ -7952,7 +7972,7 @@ input ProductCreateInput {
   slug: String
   subtitle: String
   title: String
-  tour: TourCreateOneInlineInput
+  tour: TourCreateManyInlineInput
   updatedAt: DateTime
   youtubeLink: [String!]
 }
@@ -8231,7 +8251,9 @@ input ProductManyWhereInput {
 
   """All values starting with the given string."""
   title_starts_with: String
-  tour: TourWhereInput
+  tour_every: TourWhereInput
+  tour_none: TourWhereInput
+  tour_some: TourWhereInput
   updatedAt: DateTime
 
   """All values greater than the given value."""
@@ -8880,7 +8902,7 @@ input ProductUpdateInput {
   slug: String
   subtitle: String
   title: String
-  tour: TourUpdateOneInlineInput
+  tour: TourUpdateManyInlineInput
   youtubeLink: [String!]
 }
 
@@ -9232,7 +9254,9 @@ input ProductWhereInput {
 
   """All values starting with the given string."""
   title_starts_with: String
-  tour: TourWhereInput
+  tour_every: TourWhereInput
+  tour_none: TourWhereInput
+  tour_some: TourWhereInput
   updatedAt: DateTime
 
   """All values greater than the given value."""
@@ -12771,8 +12795,10 @@ type Tour implements Entity & Node {
     This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
     """
     locales: [Locale!]
+    orderBy: DestinationOrderByInput
     skip: Int
-  ): [TourDestination!]!
+    where: DestinationWhereInput
+  ): [Destination!]!
 
   """Get the document in other stages"""
   documentInStages(
@@ -12906,8 +12932,10 @@ type Tour implements Entity & Node {
     This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
     """
     locales: [Locale!]
+    orderBy: ProductOrderByInput
     skip: Int
-  ): [TourProduct!]!
+    where: ProductWhereInput
+  ): [Product!]!
 
   """The time the document was published. Null on documents in draft stage."""
   publishedAt: DateTime
@@ -13043,12 +13071,12 @@ type TourConnection {
 input TourCreateInput {
   createdAt: DateTime
   description: RichTextAST
-  destination: TourDestinationCreateManyInlineInput
+  destination: DestinationCreateManyInlineInput
   headerImage: AssetCreateOneInlineInput
   image: AssetCreateManyInlineInput
   isFeatured: Boolean
   price: ProductPriceCreateManyInlineInput
-  product: TourProductCreateManyInlineInput
+  product: ProductCreateManyInlineInput
   shop: ShopCreateOneInlineInput
   shortDescription: String
   shortLocation: String
@@ -13072,101 +13100,6 @@ input TourCreateOneInlineInput {
 
   """Create and connect one Tour document"""
   create: TourCreateInput
-}
-
-union TourDestination = Destination
-
-input TourDestinationConnectInput {
-  Destination: DestinationConnectInput
-}
-
-input TourDestinationCreateInput {
-  Destination: DestinationCreateInput
-}
-
-input TourDestinationCreateManyInlineInput {
-  """Connect multiple existing TourDestination documents"""
-  connect: [TourDestinationWhereUniqueInput!]
-
-  """Create and connect multiple existing TourDestination documents"""
-  create: [TourDestinationCreateInput!]
-}
-
-input TourDestinationCreateOneInlineInput {
-  """Connect one existing TourDestination document"""
-  connect: TourDestinationWhereUniqueInput
-
-  """Create and connect one TourDestination document"""
-  create: TourDestinationCreateInput
-}
-
-input TourDestinationUpdateInput {
-  Destination: DestinationUpdateInput
-}
-
-input TourDestinationUpdateManyInlineInput {
-  """Connect multiple existing TourDestination documents"""
-  connect: [TourDestinationConnectInput!]
-
-  """Create and connect multiple TourDestination documents"""
-  create: [TourDestinationCreateInput!]
-
-  """Delete multiple TourDestination documents"""
-  delete: [TourDestinationWhereUniqueInput!]
-
-  """Disconnect multiple TourDestination documents"""
-  disconnect: [TourDestinationWhereUniqueInput!]
-
-  """
-  Override currently-connected documents with multiple existing TourDestination documents
-  """
-  set: [TourDestinationWhereUniqueInput!]
-
-  """Update multiple TourDestination documents"""
-  update: [TourDestinationUpdateWithNestedWhereUniqueInput!]
-
-  """Upsert multiple TourDestination documents"""
-  upsert: [TourDestinationUpsertWithNestedWhereUniqueInput!]
-}
-
-input TourDestinationUpdateManyWithNestedWhereInput {
-  Destination: DestinationUpdateManyWithNestedWhereInput
-}
-
-input TourDestinationUpdateOneInlineInput {
-  """Connect existing TourDestination document"""
-  connect: TourDestinationWhereUniqueInput
-
-  """Create and connect one TourDestination document"""
-  create: TourDestinationCreateInput
-
-  """Delete currently connected TourDestination document"""
-  delete: Boolean
-
-  """Disconnect currently connected TourDestination document"""
-  disconnect: Boolean
-
-  """Update single TourDestination document"""
-  update: TourDestinationUpdateWithNestedWhereUniqueInput
-
-  """Upsert single TourDestination document"""
-  upsert: TourDestinationUpsertWithNestedWhereUniqueInput
-}
-
-input TourDestinationUpdateWithNestedWhereUniqueInput {
-  Destination: DestinationUpdateWithNestedWhereUniqueInput
-}
-
-input TourDestinationUpsertWithNestedWhereUniqueInput {
-  Destination: DestinationUpsertWithNestedWhereUniqueInput
-}
-
-input TourDestinationWhereInput {
-  Destination: DestinationWhereInput
-}
-
-input TourDestinationWhereUniqueInput {
-  Destination: DestinationWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -13214,14 +13147,9 @@ input TourManyWhereInput {
   """All values that are not contained in given list."""
   createdAt_not_in: [DateTime]
   createdBy: UserWhereInput
-
-  """All values in which the union is empty"""
-  destination_empty: Boolean
-
-  """
-  Matches if the union contains at least one connection to the provided item to the filter
-  """
-  destination_some: TourDestinationWhereInput
+  destination_every: DestinationWhereInput
+  destination_none: DestinationWhereInput
+  destination_some: DestinationWhereInput
   documentInStages_every: TourWhereStageInput
   documentInStages_none: TourWhereStageInput
   documentInStages_some: TourWhereStageInput
@@ -13264,14 +13192,9 @@ input TourManyWhereInput {
   price_every: ProductPriceWhereInput
   price_none: ProductPriceWhereInput
   price_some: ProductPriceWhereInput
-
-  """All values in which the union is empty"""
-  product_empty: Boolean
-
-  """
-  Matches if the union contains at least one connection to the provided item to the filter
-  """
-  product_some: TourProductWhereInput
+  product_every: ProductWhereInput
+  product_none: ProductWhereInput
+  product_some: ProductWhereInput
   publishedAt: DateTime
 
   """All values greater than the given value."""
@@ -13487,109 +13410,14 @@ enum TourOrderByInput {
   updatedAt_DESC
 }
 
-union TourProduct = Product
-
-input TourProductConnectInput {
-  Product: ProductConnectInput
-}
-
-input TourProductCreateInput {
-  Product: ProductCreateInput
-}
-
-input TourProductCreateManyInlineInput {
-  """Connect multiple existing TourProduct documents"""
-  connect: [TourProductWhereUniqueInput!]
-
-  """Create and connect multiple existing TourProduct documents"""
-  create: [TourProductCreateInput!]
-}
-
-input TourProductCreateOneInlineInput {
-  """Connect one existing TourProduct document"""
-  connect: TourProductWhereUniqueInput
-
-  """Create and connect one TourProduct document"""
-  create: TourProductCreateInput
-}
-
-input TourProductUpdateInput {
-  Product: ProductUpdateInput
-}
-
-input TourProductUpdateManyInlineInput {
-  """Connect multiple existing TourProduct documents"""
-  connect: [TourProductConnectInput!]
-
-  """Create and connect multiple TourProduct documents"""
-  create: [TourProductCreateInput!]
-
-  """Delete multiple TourProduct documents"""
-  delete: [TourProductWhereUniqueInput!]
-
-  """Disconnect multiple TourProduct documents"""
-  disconnect: [TourProductWhereUniqueInput!]
-
-  """
-  Override currently-connected documents with multiple existing TourProduct documents
-  """
-  set: [TourProductWhereUniqueInput!]
-
-  """Update multiple TourProduct documents"""
-  update: [TourProductUpdateWithNestedWhereUniqueInput!]
-
-  """Upsert multiple TourProduct documents"""
-  upsert: [TourProductUpsertWithNestedWhereUniqueInput!]
-}
-
-input TourProductUpdateManyWithNestedWhereInput {
-  Product: ProductUpdateManyWithNestedWhereInput
-}
-
-input TourProductUpdateOneInlineInput {
-  """Connect existing TourProduct document"""
-  connect: TourProductWhereUniqueInput
-
-  """Create and connect one TourProduct document"""
-  create: TourProductCreateInput
-
-  """Delete currently connected TourProduct document"""
-  delete: Boolean
-
-  """Disconnect currently connected TourProduct document"""
-  disconnect: Boolean
-
-  """Update single TourProduct document"""
-  update: TourProductUpdateWithNestedWhereUniqueInput
-
-  """Upsert single TourProduct document"""
-  upsert: TourProductUpsertWithNestedWhereUniqueInput
-}
-
-input TourProductUpdateWithNestedWhereUniqueInput {
-  Product: ProductUpdateWithNestedWhereUniqueInput
-}
-
-input TourProductUpsertWithNestedWhereUniqueInput {
-  Product: ProductUpsertWithNestedWhereUniqueInput
-}
-
-input TourProductWhereInput {
-  Product: ProductWhereInput
-}
-
-input TourProductWhereUniqueInput {
-  Product: ProductWhereUniqueInput
-}
-
 input TourUpdateInput {
   description: RichTextAST
-  destination: TourDestinationUpdateManyInlineInput
+  destination: DestinationUpdateManyInlineInput
   headerImage: AssetUpdateOneInlineInput
   image: AssetUpdateManyInlineInput
   isFeatured: Boolean
   price: ProductPriceUpdateManyInlineInput
-  product: TourProductUpdateManyInlineInput
+  product: ProductUpdateManyInlineInput
   shop: ShopUpdateOneInlineInput
   shortDescription: String
   shortLocation: String
@@ -13730,14 +13558,9 @@ input TourWhereInput {
   """All values that are not contained in given list."""
   createdAt_not_in: [DateTime]
   createdBy: UserWhereInput
-
-  """All values in which the union is empty"""
-  destination_empty: Boolean
-
-  """
-  Matches if the union contains at least one connection to the provided item to the filter
-  """
-  destination_some: TourDestinationWhereInput
+  destination_every: DestinationWhereInput
+  destination_none: DestinationWhereInput
+  destination_some: DestinationWhereInput
   documentInStages_every: TourWhereStageInput
   documentInStages_none: TourWhereStageInput
   documentInStages_some: TourWhereStageInput
@@ -13780,14 +13603,9 @@ input TourWhereInput {
   price_every: ProductPriceWhereInput
   price_none: ProductPriceWhereInput
   price_some: ProductPriceWhereInput
-
-  """All values in which the union is empty"""
-  product_empty: Boolean
-
-  """
-  Matches if the union contains at least one connection to the provided item to the filter
-  """
-  product_some: TourProductWhereInput
+  product_every: ProductWhereInput
+  product_none: ProductWhereInput
+  product_some: ProductWhereInput
   publishedAt: DateTime
 
   """All values greater than the given value."""

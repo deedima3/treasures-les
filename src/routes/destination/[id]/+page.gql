@@ -42,4 +42,20 @@ query DestinationDetail($id: String) {
 		}
 		youtubeLink
 	}
+	tours {
+		slug
+		title
+		shortDescription
+		destination {
+			... on Destination {
+				id
+				slug
+			}
+		}
+		headerImage {
+			height
+			width
+			url
+		}
+	}
 }
