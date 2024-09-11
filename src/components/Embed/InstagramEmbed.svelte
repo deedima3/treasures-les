@@ -1,9 +1,9 @@
 <main>
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/girisegare"
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/visitles.co.id"
         data-instgrm-version="12"
         style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:undefinedpx;height:undefinedpx;max-height:100%; width:undefinedpx;">
         <div style="padding:16px;">
-            <a id="main_link" href="girisegare"
+            <a id="main_link" href="visitles.co.id"
                 style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;"
                 target="_blank">
                 <div style=" display: flex; flex-direction: row; align-items: center;">
@@ -83,7 +83,7 @@
             </a>
             <p
                 style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
-                <a href="https://www.instagram.com/girisegare"
+                <a href="https://www.instagram.com/visitles.co.id"
                     style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
                     target="_blank">Shared post</a> on <time
                     style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;">Time</time>

@@ -24,9 +24,11 @@
 		<video
 			loop
 			autoplay
+			playsinline
 			muted
 			class="z-0 object-cover w-full h-full max-h-screen min-h-screen aspect-auto"
-			src="/vid/drone.mp4"
-		/>
+		>
+			<source src="/vid/drone.mov" type="video/mp4" />
+		</video>
 	</div>
 </div>
